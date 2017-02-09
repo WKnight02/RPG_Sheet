@@ -4,5 +4,8 @@
     <string name="app_name">RPG Sheet</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="game_master">Game Master</string>
+    <string name="player">Player</string>
+    <string name="rpg_sheet">RPG Sheet</string>
 
 </resources>
