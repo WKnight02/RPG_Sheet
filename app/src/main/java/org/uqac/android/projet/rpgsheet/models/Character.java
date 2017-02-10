@@ -1,5 +1,7 @@
 package org.uqac.android.projet.rpgsheet.models;
 
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Locale;
 
 /**
@@ -14,10 +16,11 @@ public class Character {
 
     protected String name;
     //protected Inventory inventory;
-    //protected List<Trait> traits;
+    protected HashMap<String, Trait> traits;
     //protected List<Info> infos;
 
     public Character(String name) {
+        traits = new HashMap<String, Trait>();
         setName(name);
     }
 
@@ -29,5 +32,22 @@ public class Character {
 
     public String getName() {
         return name;
+    }
+
+    public Character addTrait(Trait trait) {
+        String label = trait.getLabel();
+        if (traits.containsKey(label))
+            throw new IllegalArgumentException(String.format(Locale.ENGLISH, "This trait seems to already exists... (%s)", label));
+        else traits.put(label, trait);
+        return this;
+    }
+
+    public Object getTrait(String label) {
+        if (traits.containsKey(label)) return traits.get(label);
+        else throw new IllegalArgumentException(String.format(Locale.ENGLISH, "This trait doesn't seem to exists... (%s)", label));
+    }
+
+    public Collection<Trait> getAllTraits() {
+        return traits.values();
     }
 }
