@@ -15,11 +15,12 @@ public class Character {
     final public int NAME_MIN_CHARACTERS = 3;
 
     protected String name;
-    //protected Inventory inventory;
+    protected Inventory inventory;
     protected HashMap<String, Trait> traits;
     protected HashMap<String, Info> infos;
 
     public Character(String name) {
+        inventory = new Inventory();
         traits = new HashMap<String, Trait>();
         infos = new HashMap<String, Info>();
         setName(name);
@@ -33,6 +34,10 @@ public class Character {
 
     public String getName() {
         return name;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
