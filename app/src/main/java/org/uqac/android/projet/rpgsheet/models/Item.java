@@ -35,6 +35,10 @@ public abstract class Item {
         return this;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public int getMaxQuantity() {
         return maxQuantity;
     }
