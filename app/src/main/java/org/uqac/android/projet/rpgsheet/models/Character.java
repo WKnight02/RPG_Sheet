@@ -17,10 +17,11 @@ public class Character {
     protected String name;
     //protected Inventory inventory;
     protected HashMap<String, Trait> traits;
-    //protected List<Info> infos;
+    protected HashMap<String, Info> infos;
 
     public Character(String name) {
         traits = new HashMap<String, Trait>();
+        infos = new HashMap<String, Info>();
         setName(name);
     }
 
@@ -34,6 +35,9 @@ public class Character {
         return name;
     }
 
+    /**
+     * Adds a trait to the character
+     */
     public Character addTrait(Trait trait) {
         String label = trait.getLabel();
         if (traits.containsKey(label))
@@ -42,12 +46,32 @@ public class Character {
         return this;
     }
 
-    public Object getTrait(String label) {
+    public Trait getTrait(String label) {
         if (traits.containsKey(label)) return traits.get(label);
         else throw new IllegalArgumentException(String.format(Locale.ENGLISH, "This trait doesn't seem to exists... (%s)", label));
     }
 
     public Collection<Trait> getAllTraits() {
         return traits.values();
+    }
+
+    /**
+     * Adds an info to the character
+     */
+    public Character addInfo(Info info) {
+        String label = info.getLabel();
+        if (traits.containsKey(label))
+            throw new IllegalArgumentException(String.format(Locale.ENGLISH, "This info seems to already exists... (%s)", label));
+        else infos.put(label, info);
+        return this;
+    }
+
+    public Info getInfo(String label) {
+        if (infos.containsKey(label)) return infos.get(label);
+        else throw new IllegalArgumentException(String.format(Locale.ENGLISH, "This info doesn't seem to exists... (%s)", label));
+    }
+
+    public Collection<Info> getAllInfos() {
+        return infos.values();
     }
 }
