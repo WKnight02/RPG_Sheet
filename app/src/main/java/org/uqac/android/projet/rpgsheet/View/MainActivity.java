@@ -1,9 +1,14 @@
-package org.uqac.android.projet.rpgsheet;
+package org.uqac.android.projet.rpgsheet.View;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+
+import org.uqac.android.projet.rpgsheet.R;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -35,5 +40,15 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void loadPlayerView(View view){
+        Intent intent = new Intent(this, CharacterView.class);
+        startActivity(intent);
+    }
+
+    public void loadGMView(View view){
+        Intent intent = new Intent(this, GameMasterView.class);
+        startActivity(intent);
     }
 }

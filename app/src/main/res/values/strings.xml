@@ -7,5 +7,6 @@
     <string name="game_master">Game Master</string>
     <string name="player">Player</string>
     <string name="rpg_sheet">RPG Sheet</string>
+    <string name="title">Title</string>
 
 </resources>
