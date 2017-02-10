@@ -14,8 +14,10 @@ public class Trait {
     protected int maxValue;
     protected int value;
 
-    public Trait(String label) {
-
+    public Trait(String label, int maxValue) {
+        setLabel(label);
+        setMaxValue(maxValue);
+        setValue(maxValue);
     }
 
     public Trait setLabel(String label) {
