@@ -39,13 +39,11 @@ public class Info {
     }
 
     public Info setValue(double value) {
-        this.value = NumberFormat.getInstance().format(value);
-        return this;
+        return setValue(NumberFormat.getInstance().format(value));
     }
 
     public Info setValue(Object value) {
-        this.value = value.toString();
-        return this;
+        return setValue(value.toString());
     }
 
     public String getValue() {

@@ -41,4 +41,9 @@ public abstract class Item {
     public int getQuantity() {
         return quantity;
     }
+
+    @Override
+    public String toString() {
+        return String.format(Locale.ENGLISH, "%s(%s)", this.getClass().getName(), getName());
+    }
 }

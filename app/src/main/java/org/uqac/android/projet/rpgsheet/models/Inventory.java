@@ -12,14 +12,14 @@ import java.util.Set;
  * (equipment, random items, etc...)
  */
 
-public class Inventory implements Iterable {
+public class Inventory implements Iterable<Item> {
 
     protected Set<Item> items;
-    protected Set<Item> equiped;
+    protected Set<EquipableItem> equiped;
 
     public Inventory() {
         items = new HashSet<Item>();
-        equiped = new HashSet<Item>();
+        equiped = new HashSet<EquipableItem>();
     }
 
     public Inventory addItem(Item item) {
@@ -28,21 +28,23 @@ public class Inventory implements Iterable {
 
     public Inventory addItem(Item item, boolean equip) {
         items.add(item);
-        if (equip) equiped.add(item);
-        return this;
+        if (equip) {
+            if (item instanceof EquipableItem) equipItem((EquipableItem)item);
+            else throw new IllegalArgumentException(String.format(Locale.ENGLISH, "This item is not equipable... (%s)", item));
+        } return this;
     }
 
-    public Inventory equipItem(Item item) {
+    public Inventory equipItem(EquipableItem item) {
         if (items.contains(item)) equiped.add(item);
-        else throw new IllegalArgumentException(String.format(Locale.ENGLISH, "This item was not in the inventory, couldn't equip it (%s)", item.getName()));
+        else throw new IllegalArgumentException(String.format(Locale.ENGLISH, "This item was not in the inventory, couldn't equip it (%s)", item));
         return this;
     }
 
     public Inventory dropItem(Item item) {
         if (items.contains(item)) {
             items.remove(item);
-            if (equiped.contains(item)) equiped.remove(item);
-        } else throw new IllegalArgumentException(String.format(Locale.ENGLISH, "This item was not in your possession to begin with (%s)", item.getName()));
+            equiped.remove(item);
+        } else throw new IllegalArgumentException(String.format(Locale.ENGLISH, "This item was not in your possession to begin with (%s)", item));
         return this;
     }
 
@@ -50,11 +52,11 @@ public class Inventory implements Iterable {
         return items;
     }
 
-    public Collection<Item> getEquipedItems() {
+    public Collection<EquipableItem> getEquipedItems() {
         return equiped;
     }
 
-    public boolean isItemEquiped(Item item) {
+    public boolean isItemEquiped(EquipableItem item) {
         return equiped.contains(item);
     }
 
