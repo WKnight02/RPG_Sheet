@@ -18,12 +18,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("Create table Character(" +
                 "idCharacter integer Primary Key autoincrement, " +
-                "name varchar(64)" +
+                "name varchar(64) Unique" +
                 ");" +
 
                 "Create table Story (" +
                 "idStory integer Primary Key autoincrement, " +
-                "title varchar(64)," +
+                "title varchar(64) Unique," +
                 "lore varchar(5000)" +
                 ");" +
 
@@ -150,5 +150,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "Drop table if exists Character_Item;" +
                 "");
         onCreate(db);
+    }
+
+    @Override
+    public void onOpen(SQLiteDatabase db) {
+        super.onOpen(db);
+        if (!db.isReadOnly()) {
+            // Enable foreign key constraints
+            db.execSQL("PRAGMA foreign_keys=ON;");
+        }
     }
 }

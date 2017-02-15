@@ -42,12 +42,12 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void loadPlayerView(View view){
-        Intent intent = new Intent(this, CharacterView.class);
+        Intent intent = new Intent(this, CharactersView.class);
         startActivity(intent);
     }
 
     public void loadGMView(View view){
-        Intent intent = new Intent(this, GameMasterView.class);
+        Intent intent = new Intent(this, StoriesView.class);
         startActivity(intent);
     }
 }

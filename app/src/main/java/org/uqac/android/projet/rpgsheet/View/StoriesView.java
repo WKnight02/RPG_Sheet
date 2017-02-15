@@ -10,7 +10,7 @@ import org.uqac.android.projet.rpgsheet.R;
 /**
  * Created by Bruno.J on 10/02/2017.
  */
-public class GameMasterView extends ActionBarActivity {
+public class StoriesView extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

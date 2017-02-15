@@ -2,10 +2,15 @@ package org.uqac.android.projet.rpgsheet.DB;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 
 import org.uqac.android.projet.rpgsheet.models.Character;
 import org.uqac.android.projet.rpgsheet.models.Info;
 import org.uqac.android.projet.rpgsheet.models.Trait;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
 /**
  * Created by Bruno.J on 14/02/2017.
  */
@@ -90,5 +95,17 @@ public class CharacterDB extends DBBase {
 
     public long deleteCharacter(Character ch){
         return mDb.delete(TABLE_NAME, ID+"=?",new String[]{ch.getId()+""});
+    }
+
+    public Collection<Character> getAllCharacters(){
+        Collection<Character> characters = new ArrayList<Character>();
+        Cursor curs=mDb.query(TABLE_NAME, new String[]{ID, NAME},null,null,null,null,null);
+        curs.moveToFirst();
+        do {
+            Character ch=new Character(curs.getString(1));
+            ch.setId(curs.getLong(0));
+            characters.add(ch);
+        }while(curs.moveToNext());
+        return characters;
     }
 }
