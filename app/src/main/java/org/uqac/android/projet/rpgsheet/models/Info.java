@@ -10,6 +10,7 @@ import java.text.NumberFormat;
 
 public class Info {
 
+    protected long id;
     protected String label;
     protected String value;
 
@@ -49,4 +50,8 @@ public class Info {
     public String getValue() {
         return value;
     }
+
+    public long getId(){ return this.id;}
+
+    public void setId(long id){this.id=id;}
 }

@@ -7,7 +7,7 @@ import android.content.Context;
  */
 
 public class Character_InfoDB extends DBBase {
-    public static final String TABLE_NAME = "Info";
+    public static final String TABLE_NAME = "Character_Info";
     public static final String IDCharacter="idCharacter";
     public static final String IDInfo= "idInfo";
 

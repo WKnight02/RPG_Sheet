@@ -14,6 +14,7 @@ public class Character {
 
     final public int NAME_MIN_CHARACTERS = 3;
 
+    protected long id;
     protected String name;
     protected Inventory inventory;
     protected HashMap<String, Trait> traits;
@@ -79,4 +80,8 @@ public class Character {
     public Collection<Info> getAllInfos() {
         return infos.values();
     }
+
+    public long getId(){ return this.id;}
+
+    public void setId(long id){this.id=id;}
 }

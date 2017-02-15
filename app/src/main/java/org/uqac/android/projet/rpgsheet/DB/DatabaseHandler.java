@@ -18,7 +18,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("Create table Character(" +
                 "idCharacter integer Primary Key autoincrement, " +
-                "name varchar(64) Primary Key" +
+                "name varchar(64)" +
                 ");" +
 
                 "Create table Story (" +
@@ -60,72 +60,72 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "idCharacter integer," +
                 "idSkill integer," +
                 "Primary Key(idCharacter, idSkill)," +
-                "Foreign Key (idCharacter) REFERENCES Character(idCharacter)," +
-                "Foreign Key (idSkill) REFERENCES Skill(idSkill)" +
+                "Foreign Key (idCharacter) REFERENCES Character(idCharacter) ON DELETE CASCADE," +
+                "Foreign Key (idSkill) REFERENCES Skill(idSkill) ON DELETE CASCADE" +
                 ");" +
 
                 "Create table Story_Monster(" +
                 "idStory integer," +
                 "idMonster integer," +
                 "Primary Key(idStory, idMonster)," +
-                "Foreign Key (idStory) REFERENCES Story(idStory)," +
-                "Foreign Key (idMonster) REFERENCES Monster(idMonster)" +
+                "Foreign Key (idStory) REFERENCES Story(idStory) ON DELETE CASCADE," +
+                "Foreign Key (idMonster) REFERENCES Monster(idMonster) ON DELETE CASCADE" +
                 ");" +
 
                 "Create table Character_Statistic(" +
                 "idCharacter integer," +
                 "idStatistic integer," +
                 "Primary Key(idCharacter, idStatistic)" +
-                "Foreign Key (idCharacter) REFERENCES Character(idCharacter)," +
-                "Foreign Key (idStatistic) REFERENCES Statistic(idStatistic)" +
+                "Foreign Key (idCharacter) REFERENCES Character(idCharacter) ON DELETE CASCADE," +
+                "Foreign Key (idStatistic) REFERENCES Statistic(idStatistic) ON DELETE CASCADE" +
                 ");" +
 
                 "Create table Character_Info(" +
                 "idCharacter integer," +
                 "idInfo integer," +
                 "Primary Key(idCharacter, idInfo)" +
-                "Foreign Key (idCharacter) REFERENCES Character(idCharacter)," +
-                "Foreign Key (idInfo) REFERENCES Info(idInfo)" +
+                "Foreign Key (idCharacter) REFERENCES Character(idCharacter) ON DELETE CASCADE," +
+                "Foreign Key (idInfo) REFERENCES Info(idInfo) ON DELETE CASCADE" +
                 ");" +
 
                 "Create table Monster_Skill(" +
                 "idMonster interger," +
                 "idSkill integer," +
                 "Primary Key(idMonster, idSkill)" +
-                "Foreign Key (idMonster) REFERENCES Monster(idMonster)," +
-                "Foreign Key (idSkill) REFERENCES Skill(idSkill)" +
+                "Foreign Key (idMonster) REFERENCES Monster(idMonster) ON DELETE CASCADE," +
+                "Foreign Key (idSkill) REFERENCES Skill(idSkill) ON DELETE CASCADE" +
                 ");" +
 
                 "Create table Monster_Statistic(" +
                 "idMonster integer," +
                 "idStatistic integer," +
                 "Primary Key(idMonster, idStatistic)" +
-                "Foreign Key (idMonster) REFERENCES Monster(idMonster)," +
-                "Foreign Key (idStatistic) REFERENCES Statistic(idStatistic)" +
+                "Foreign Key (idMonster) REFERENCES Monster(idMonster) ON DELETE CASCADE," +
+                "Foreign Key (idStatistic) REFERENCES Statistic(idStatistic) ON DELETE CASCADE" +
                 ");"+
 
                 "Create table Monster_Info(" +
                 "idMonster integer," +
                 "idInfo integer," +
                 "Primary Key(idMonster, idInfo)" +
-                "Foreign Key (idMonster) REFERENCES Monster(idMonster)," +
-                "Foreign Key (idInfo) REFERENCES Info(idInfo)" +
+                "Foreign Key (idMonster) REFERENCES Monster(idMonster) ON DELETE CASCADE," +
+                "Foreign Key (idInfo) REFERENCES Info(idInfo) ON DELETE CASCADE" +
                 ");" +
 
                 "Create table Item_Statistic(" +
                 "idItem integer," +
                 "idStatistic integer," +
                 "Primary Key(idItem, idStatistic)" +
-                "Foreign Key (idItem) REFERENCES Item(idItem)," +
-                "Foreign Key (idStatistic) REFERENCES Statistic(idStatistic)" +
+                "Foreign Key (idItem) REFERENCES Item(idItem) ON DELETE CASCADE," +
+                "Foreign Key (idStatistic) REFERENCES Statistic(idStatistic) ON DELETE CASCADE" +
                 ");" +
 
                 "Create table Character_Item(" +
                 "idCharacter integer," +
                 "idItem integer," +
                 "Primary Key(idCharacter, idItem)" +
-                "Foreign Key (idCharacter) REFERENCES Character(idCharacter)," +
-                "Foreign Key (idItem) REFERENCES Item(idItem)" +
+                "Foreign Key (idCharacter) REFERENCES Character(idCharacter) ON DELETE CASCADE," +
+                "Foreign Key (idItem) REFERENCES Item(idItem) ON DELETE CASCADE" +
                 ");");
 
     }

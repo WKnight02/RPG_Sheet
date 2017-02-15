@@ -10,6 +10,7 @@ import java.util.Locale;
 
 public class Trait {
 
+    protected long id;
     protected String label;
     protected int maxValue;
     protected int value;
@@ -48,4 +49,8 @@ public class Trait {
     public int getValue() {
         return value;
     }
+
+    public long getId(){ return this.id;}
+
+    public void setId(long id){this.id=id;}
 }
