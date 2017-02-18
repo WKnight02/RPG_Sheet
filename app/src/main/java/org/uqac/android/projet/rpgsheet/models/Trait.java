@@ -19,6 +19,7 @@ public class Trait {
         setLabel(label);
         setMaxValue(maxValue);
         setValue(maxValue);
+        this.id=-1;
     }
 
     public Trait setLabel(String label) {

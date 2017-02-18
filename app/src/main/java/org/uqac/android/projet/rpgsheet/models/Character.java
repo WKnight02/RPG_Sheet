@@ -25,6 +25,7 @@ public class Character {
         traits = new HashMap<String, Trait>();
         infos = new HashMap<String, Info>();
         setName(name);
+        this.id=-1;
     }
 
     public Character setName(String name) {

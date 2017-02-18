@@ -21,6 +21,7 @@ public class Info {
     public Info(String label, String value) {
         this(label);
         setValue(value);
+        this.id=-1;
     }
 
     public Info setLabel(String label) {

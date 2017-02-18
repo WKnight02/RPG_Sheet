@@ -7,6 +7,7 @@ import android.database.Cursor;
 import org.uqac.android.projet.rpgsheet.models.Character;
 import org.uqac.android.projet.rpgsheet.models.Info;
 import org.uqac.android.projet.rpgsheet.models.Trait;
+import org.uqac.android.projet.rpgsheet.models.Skill;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -55,42 +56,69 @@ public class CharacterDB extends DBBase {
         return 0;
     }
 
-    public int updateCharacter(Character ch){
+    public long updateCharacter(Character ch){
         long retVal;
         long id=ch.getId();
         ContentValues values = new ContentValues();
         values.put(NAME, ch.getName());
         retVal=mDb.update(TABLE_NAME, values, ID+"=?", new String[]{id+""});
-        if(retVal==-1) {
+
+        return retVal;
+    }
+
+    public long insertInfo(Info info, Character ch){
+        long retVal;
+        long idCharacter=ch.getId();
+
+        ContentValues valuesInfo=new ContentValues();
+        valuesInfo.put(Character_InfoDB.IDCharacter, idCharacter);
+        valuesInfo.put(Character_InfoDB.LABEL, info.getLabel());
+        valuesInfo.put(Character_InfoDB.VALUE, info.getValue());
+        retVal=mDb.insert(Character_InfoDB.TABLE_NAME, null, valuesInfo);
+        if(retVal==-1){
             return -1;
         }
+        info.setId(retVal);
+
         return 0;
     }
 
-    public long insertInfo(Info info, long idCharacter){
-        long idInfo;
+    public long insertTrait(Trait trait, Character ch) {
         long retVal;
+        long idCharacter=ch.getId();
 
         ContentValues valuesInfo=new ContentValues();
-        idInfo=info.getId();
-        valuesInfo.put(Character_InfoDB.IDInfo,idInfo);
-        valuesInfo.put(Character_InfoDB.IDCharacter, idCharacter);
-        retVal=mDb.insert(Character_InfoDB.TABLE_NAME, null, valuesInfo);
 
-        return retVal;
-    }
-
-    public long insertTrait(Trait trait, long idCharacter) {
-        long idTrait;
-        long retVal;
-
-        ContentValues valuesInfo=new ContentValues();
-        idTrait=trait.getId();
-        valuesInfo.put(Character_StatisticDB.IDTrait,idTrait);
         valuesInfo.put(Character_StatisticDB.IDCharacter, idCharacter);
+        valuesInfo.put(Character_StatisticDB.LABEL, trait.getLabel());
+        valuesInfo.put(Character_StatisticDB.MAXVALUE, trait.getMaxValue());
+        valuesInfo.put(Character_StatisticDB.VALUE, trait.getValue());
         retVal=mDb.insert(Character_StatisticDB.TABLE_NAME, null, valuesInfo);
 
-        return retVal;
+        if(retVal==-1){
+            return -1;
+        }
+
+        trait.setId(retVal);
+
+        return 0;
+    }
+
+    public long insertSkill(Skill skill, Character ch){
+        long retVal;
+        long idCharacter=ch.getId();
+
+        ContentValues valuesInfo=new ContentValues();
+        valuesInfo.put(Character_SkillDB.IDCharacter, idCharacter);
+        valuesInfo.put(Character_SkillDB.LABEL, skill.getLabel());
+        valuesInfo.put(Character_SkillDB.DESCRIPTION, skill.getDescription());
+        retVal=mDb.insert(Character_SkillDB.TABLE_NAME, null, valuesInfo);
+        if(retVal==-1){
+            return -1;
+        }
+        skill.setId(retVal);
+
+        return 0;
     }
 
     public long deleteCharacter(Character ch){

@@ -32,6 +32,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "name varchar(64) not NULL" +
                 ");" +
 
+                "Create table Item(" +
+                "idItem integer Primary Key autoincrement," +
+                "name varchar(64) not null" +
+                ");" +
+
+                /*
                 "Create table Skill(" +
                 "idSkill integer Primary Key autoincrement, " +
                 "label varchar(64)," +
@@ -45,23 +51,83 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "modifier integer not null" +
                 ");" +
 
-                "Create table Item(" +
-                "idItem integer Primary Key autoincrement," +
-                "name varchar(64) not null" +
-                ");" +
-
                 "Create table Info(" +
                 "idInfo integer Primary Key autoincrement, " +
                 "label varchar(64)," +
                 "description varchar(64)" +
                 ");" +
-
+*/
                 "Create table Character_Skill(" +
                 "idCharacter integer," +
-                "idSkill integer," +
-                "Primary Key(idCharacter, idSkill)," +
+                "idSkill integer Primary Key autoincrement," +
+                "label varchar(64)," +
+                "description varchar(512)" +
+                //"Primary Key(idCharacter, idSkill)," +
                 "Foreign Key (idCharacter) REFERENCES Character(idCharacter) ON DELETE CASCADE," +
-                "Foreign Key (idSkill) REFERENCES Skill(idSkill) ON DELETE CASCADE" +
+                //"Foreign Key (idSkill) REFERENCES Skill(idSkill) ON DELETE CASCADE" +
+                ");" +
+
+                "Create table Character_Statistic(" +
+                "idCharacter integer," +
+                "idStatistic integer Primary Key autoincrement," +
+                "label varchar(64)," +
+                "baseValue integer not null," +
+                "modifier integer not null" +
+                //"Primary Key(idCharacter, idStatistic)" +
+                "Foreign Key (idCharacter) REFERENCES Character(idCharacter) ON DELETE CASCADE," +
+                //"Foreign Key (idStatistic) REFERENCES Statistic(idStatistic) ON DELETE CASCADE" +
+                ");" +
+
+                "Create table Character_Info(" +
+                "idCharacter integer," +
+                "idInfo integer Primary Key autoincrement, " +
+                "label varchar(64)," +
+                "description varchar(64)" +
+               // "Primary Key(idCharacter, idInfo)" +
+                "Foreign Key (idCharacter) REFERENCES Character(idCharacter) ON DELETE CASCADE," +
+                //"Foreign Key (idInfo) REFERENCES Info(idInfo) ON DELETE CASCADE" +
+                ");" +
+
+                "Create table Monster_Skill(" +
+                "idMonster interger," +
+                "idSkill integer Primary Key autoincrement," +
+                "label varchar(64)," +
+                "description varchar(512)" +
+                //"Primary Key(idMonster, idSkill)" +
+                "Foreign Key (idMonster) REFERENCES Monster(idMonster) ON DELETE CASCADE," +
+                //"Foreign Key (idSkill) REFERENCES Skill(idSkill) ON DELETE CASCADE" +
+                ");" +
+
+                "Create table Monster_Statistic(" +
+                "idMonster integer," +
+                "idStatistic integer Primary Key autoincrement," +
+                "label varchar(64)," +
+                "baseValue integer not null," +
+                "modifier integer not null" +
+                //"Primary Key(idMonster, idStatistic)" +
+                "Foreign Key (idMonster) REFERENCES Monster(idMonster) ON DELETE CASCADE," +
+                //"Foreign Key (idStatistic) REFERENCES Statistic(idStatistic) ON DELETE CASCADE" +
+                ");"+
+
+                "Create table Monster_Info(" +
+                "idMonster integer," +
+                "idInfo integer Primary Key autoincrement, " +
+                "label varchar(64)," +
+                "description varchar(64)" +
+                //"Primary Key(idMonster, idInfo)" +
+                "Foreign Key (idMonster) REFERENCES Monster(idMonster) ON DELETE CASCADE," +
+                //"Foreign Key (idInfo) REFERENCES Info(idInfo) ON DELETE CASCADE" +
+                ");" +
+
+                "Create table Item_Statistic(" +
+                "idItem integer," +
+                "idStatistic integer Primary Key autoincrement," +
+                "label varchar(64)," +
+                "baseValue integer not null," +
+                "modifier integer not null" +
+                //"Primary Key(idItem, idStatistic)" +
+                "Foreign Key (idItem) REFERENCES Item(idItem) ON DELETE CASCADE," +
+                //"Foreign Key (idStatistic) REFERENCES Statistic(idStatistic) ON DELETE CASCADE" +
                 ");" +
 
                 "Create table Story_Monster(" +
@@ -70,54 +136,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "Primary Key(idStory, idMonster)," +
                 "Foreign Key (idStory) REFERENCES Story(idStory) ON DELETE CASCADE," +
                 "Foreign Key (idMonster) REFERENCES Monster(idMonster) ON DELETE CASCADE" +
-                ");" +
-
-                "Create table Character_Statistic(" +
-                "idCharacter integer," +
-                "idStatistic integer," +
-                "Primary Key(idCharacter, idStatistic)" +
-                "Foreign Key (idCharacter) REFERENCES Character(idCharacter) ON DELETE CASCADE," +
-                "Foreign Key (idStatistic) REFERENCES Statistic(idStatistic) ON DELETE CASCADE" +
-                ");" +
-
-                "Create table Character_Info(" +
-                "idCharacter integer," +
-                "idInfo integer," +
-                "Primary Key(idCharacter, idInfo)" +
-                "Foreign Key (idCharacter) REFERENCES Character(idCharacter) ON DELETE CASCADE," +
-                "Foreign Key (idInfo) REFERENCES Info(idInfo) ON DELETE CASCADE" +
-                ");" +
-
-                "Create table Monster_Skill(" +
-                "idMonster interger," +
-                "idSkill integer," +
-                "Primary Key(idMonster, idSkill)" +
-                "Foreign Key (idMonster) REFERENCES Monster(idMonster) ON DELETE CASCADE," +
-                "Foreign Key (idSkill) REFERENCES Skill(idSkill) ON DELETE CASCADE" +
-                ");" +
-
-                "Create table Monster_Statistic(" +
-                "idMonster integer," +
-                "idStatistic integer," +
-                "Primary Key(idMonster, idStatistic)" +
-                "Foreign Key (idMonster) REFERENCES Monster(idMonster) ON DELETE CASCADE," +
-                "Foreign Key (idStatistic) REFERENCES Statistic(idStatistic) ON DELETE CASCADE" +
-                ");"+
-
-                "Create table Monster_Info(" +
-                "idMonster integer," +
-                "idInfo integer," +
-                "Primary Key(idMonster, idInfo)" +
-                "Foreign Key (idMonster) REFERENCES Monster(idMonster) ON DELETE CASCADE," +
-                "Foreign Key (idInfo) REFERENCES Info(idInfo) ON DELETE CASCADE" +
-                ");" +
-
-                "Create table Item_Statistic(" +
-                "idItem integer," +
-                "idStatistic integer," +
-                "Primary Key(idItem, idStatistic)" +
-                "Foreign Key (idItem) REFERENCES Item(idItem) ON DELETE CASCADE," +
-                "Foreign Key (idStatistic) REFERENCES Statistic(idStatistic) ON DELETE CASCADE" +
                 ");" +
 
                 "Create table Character_Item(" +
