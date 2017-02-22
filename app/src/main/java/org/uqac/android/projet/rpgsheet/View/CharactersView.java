@@ -1,5 +1,6 @@
 package org.uqac.android.projet.rpgsheet.View;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -15,7 +16,6 @@ import org.uqac.android.projet.rpgsheet.models.Character;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Created by Bruno.J on 10/02/2017.
@@ -23,27 +23,28 @@ import java.util.List;
 
 public class CharactersView extends ActionBarActivity {
 
+    private  ArrayList<String> names;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.character_view);
+        setContentView(R.layout.characters_view);
 
         ListView view=(ListView) findViewById(R.id.CharactersList);
         CharacterDB db=new CharacterDB(this);
         final Collection<Character> characters=db.getAllCharacters();
 
-        List<String> names=new ArrayList<String>();
+       names=new ArrayList<>();
         for (Character ch:characters){
             names.add(ch.getName());
         }
-        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, names);
+        ArrayAdapter<String> adapter=new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, names);
         view.setAdapter(adapter);
 
         view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //TODO
-                //affiche les informations sur le personnage
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                names.get(position);
+                setContentView(R.layout.character_view);
             }
         });
     }
@@ -69,5 +70,10 @@ public class CharactersView extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void Return(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }

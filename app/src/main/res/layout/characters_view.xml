@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:background="#81F781"
+    tools:ignore="ExtraText"><![CDATA[>
+
+    ]]>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:layout_width="52dp"
+            android:layout_height="match_parent"
+            android:id="@+id/imageButton2"
+            android:layout_weight="0.19"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="45dp"
+            tools:ignore="RtlHardcoded"
+            android:contentDescription="@string/returnButton"
+            android:layout_marginTop="5dp"
+            android:onClick="Return (CharactersView)"
+            android:src="@mipmap/return_button"
+            android:background="@drawable/abc_item_background_holo_light" />
+
+        <TextView
+            android:text="@string/characters"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:id="@+id/textView"
+            android:textColor="@android:color/white"
+            android:textSize="30sp"
+            android:textStyle="normal|bold"
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:paddingBottom="5dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="366dp">
+
+        <ListView
+            android:layout_width="346dp"
+            android:layout_height="353dp"
+            android:id="@+id/CharactersList"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            tools:ignore="RtlHardcoded" />
+
+    </LinearLayout>
+
+    <Button
+        android:text="@string/create_new_character"
+        android:layout_width="266dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/button"
+        android:background="@android:drawable/btn_default"
+        android:gravity="center"
+        android:textAlignment="gravity"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="60dp"
+        tools:ignore="RtlHardcoded" />
+
+</LinearLayout>

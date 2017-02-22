@@ -8,5 +8,8 @@
     <string name="player">Player</string>
     <string name="rpg_sheet">RPG Sheet</string>
     <string name="title">Title</string>
+    <string name="characters">Characters :</string>
+    <string name="create_new_character">Create new Character</string>
+    <string name="returnButton" />
 
 </resources>
