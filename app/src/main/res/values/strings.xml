@@ -11,5 +11,7 @@
     <string name="characters">Characters :</string>
     <string name="create_new_character">Create new Character</string>
     <string name="returnButton" />
+    <string name="create_new_story">Create new Story</string>
+    <string name="stories">Stories</string>
 
 </resources>

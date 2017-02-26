@@ -71,6 +71,7 @@
         android:textAlignment="gravity"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="60dp"
-        tools:ignore="RtlHardcoded" />
+        tools:ignore="RtlHardcoded"
+        android:onClick="createCharacter (CharactersView)" />
 
 </LinearLayout>

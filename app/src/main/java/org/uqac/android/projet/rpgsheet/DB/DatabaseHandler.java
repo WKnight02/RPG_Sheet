@@ -27,11 +27,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "lore varchar(5000)" +
                 ");" +
 
-                "Create table Monster(" +
-                "idMonster integer Primary Key autoincrement," +
-                "name varchar(64) not NULL" +
-                ");" +
-
                 "Create table Item(" +
                 "idItem integer Primary Key autoincrement," +
                 "name varchar(64) not null" +
@@ -131,11 +126,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 ");" +
 
                 "Create table Story_Monster(" +
-                "idStory integer," +
-                "idMonster integer," +
-                "Primary Key(idStory, idMonster)," +
+                "idMonster integer Primary Key autoincrement," +
+                "name varchar(64) not NULL" +
                 "Foreign Key (idStory) REFERENCES Story(idStory) ON DELETE CASCADE," +
-                "Foreign Key (idMonster) REFERENCES Monster(idMonster) ON DELETE CASCADE" +
                 ");" +
 
                 "Create table Character_Item(" +

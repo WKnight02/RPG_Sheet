@@ -24,13 +24,14 @@ import java.util.Collection;
 public class CharactersView extends ActionBarActivity {
 
     private  ArrayList<String> names;
+    private CharacterDB db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.characters_view);
 
         ListView view=(ListView) findViewById(R.id.CharactersList);
-        CharacterDB db=new CharacterDB(this);
+        db=new CharacterDB(this);
         final Collection<Character> characters=db.getAllCharacters();
 
        names=new ArrayList<>();
@@ -75,5 +76,18 @@ public class CharactersView extends ActionBarActivity {
     public void Return(View view){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    public void createCharacter(View view){
+        Character ch;
+        long i;
+        if((i=db.getMaxId())==-1){
+            ch=new Character("Character");
+        }
+        else{
+            ch=new Character("Character"+(i+1));
+        }
+        db.insertCharacter(ch);
+        recreate();
     }
 }

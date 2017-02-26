@@ -26,7 +26,6 @@ public class CharacterDB extends DBBase {
     }
 
     public long insertCharacter(Character ch){
-        long retVal=1;
         long id;
 
         ContentValues values=new ContentValues();
@@ -36,23 +35,7 @@ public class CharacterDB extends DBBase {
             return -1;
         }
         ch.setId(id);
-/*
-        Collection<Info> infos=ch.getAllInfos();
-        for (Info i: infos) {
-            retVal=insertInfo(i, id);
-            if(retVal==-1){
-                return -1;
-            }
-        }
 
-        Collection<Trait> traits=ch.getAllTraits();
-        for(Trait t: traits){
-            retVal=insertTrait(t, id);
-            if(retVal==-1) {
-                return -1;
-            }
-        }
-*/
         return 0;
     }
 
@@ -135,5 +118,12 @@ public class CharacterDB extends DBBase {
             characters.add(ch);
         }while(curs.moveToNext());
         return characters;
+    }
+
+    public long getMaxId(){
+        Cursor curs= mDb.query(TABLE_NAME, new String[]{ID}, null, null, null, null, ID, "1");
+        if(curs.getCount()==0)
+            return -1;
+        return curs.getLong(0);
     }
 }
