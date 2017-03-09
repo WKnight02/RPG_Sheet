@@ -3,12 +3,14 @@ package org.uqac.android.projet.rpgsheet.View;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import org.uqac.android.projet.rpgsheet.DB.CharacterDB;
 import org.uqac.android.projet.rpgsheet.R;
@@ -44,33 +46,39 @@ public class CharactersView extends ActionBarActivity {
         view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                names.get(position);
-                setContentView(R.layout.character_view);
+                Intent intent= new Intent(CharactersView.this, CharacterView.class);
+                String name =names.get(position);
+                intent.putExtra("name",name);
+                startActivity(intent);
             }
         });
     }
 
-
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.object_selected, menu);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getItemId()) {
+            case R.id.delete:
+                deleteCharacter(names.get(info.position));
+                return true;
+            default:
+                return super.onContextItemSelected(item);
         }
+    }
 
-        return super.onOptionsItemSelected(item);
+    private void deleteCharacter(String name) {
+        Character ch= db.getCharacterByName(name);
+        if(ch!=null){
+            db.deleteCharacter(ch);
+        }
     }
 
     public void Return(View view){

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="NameAndInfo"
+        android:id="@+id/nameAndInfo"/>
+    <item android:title="Trait"
+        android:id="@+id/trait" />
+    <item android:title="Skill"
+        android:id="@+id/skill"/>
+    <item android:title="Items"
+        android:id="@+id/items"/>
+    <item android:title="Dice"
+        android:id="@+id/dice"/>
+</menu>
