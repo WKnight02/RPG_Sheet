@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="NameAndInfo"
+    <item android:title="@string/nameandinfo"
         android:id="@+id/nameAndInfo"/>
-    <item android:title="Trait"
+    <item android:title="@string/trait"
         android:id="@+id/trait" />
-    <item android:title="Skill"
+    <item android:title="@string/skill"
         android:id="@+id/skill"/>
-    <item android:title="Items"
+    <item android:title="@string/items"
         android:id="@+id/items"/>
-    <item android:title="Dice"
+    <item android:title="@string/dice"
         android:id="@+id/dice"/>
 </menu>

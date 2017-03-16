@@ -16,6 +16,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+        <activity
+            android:name=".View.CharactersView">
+        </activity>
+
+        <activity android:name=".View.CharacterView">
+
+        </activity>
+
+        <activity android:name=".View.StoriesView">
+
+        </activity>
+
+        <activity android:name=".View.StoryView"></activity>
+        
+        <activity android:name=".View.MonsterView"></activity>
+
+    </application>
 </manifest>

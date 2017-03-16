@@ -7,8 +7,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import org.uqac.android.projet.rpgsheet.DB.CharacterDB;
+import org.uqac.android.projet.rpgsheet.DB.Character_InfoDB;
+import org.uqac.android.projet.rpgsheet.DB.Character_SkillDB;
+import org.uqac.android.projet.rpgsheet.DB.Character_StatisticDB;
 import org.uqac.android.projet.rpgsheet.R;
 import org.uqac.android.projet.rpgsheet.models.Character;
 import org.uqac.android.projet.rpgsheet.models.Info;
@@ -25,6 +29,9 @@ import java.util.Collection;
 public class CharacterView extends ActionBarActivity{
 
     private CharacterDB dbCharacter;
+    private Character_InfoDB dbInfos;
+    private Character_SkillDB dbSkills;
+    private Character_StatisticDB dbTraits;
 
     private Character ch;
     private Collection<Trait> traits;
@@ -37,11 +44,42 @@ public class CharacterView extends ActionBarActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.name_infos_view);
 
+        dbCharacter=new CharacterDB(this);
+        dbInfos=new Character_InfoDB(this);
+        dbSkills=new Character_SkillDB(this);
+        dbTraits=new Character_StatisticDB(this);
+/*
+        ArrayList<String> todoItems=new ArrayList<String>();
+
+        Cursor c = dbInfos.showAllTables();
+        if (c.moveToFirst())
+        {
+            do{
+                todoItems.add(c.getString(0));
+
+            }while (c.moveToNext());
+        }
+        if (todoItems.size() >= 0)
+        {
+            for (int i=0; i<todoItems.size(); i++)
+            {
+                Log.d("TODOItems(" + i + ")", todoItems.get(i) + "");
+
+            }
+
+        }
+        c.close();
+        dbInfos.close();
+*/
         String name= (String) getIntent().getExtras().get("name");
         ch=dbCharacter.getCharacterByName(name);
-        infos=ch.getAllInfos();
-        traits=ch.getAllTraits();
-        //skills=ch.getAllSkills();
+
+        infos=dbInfos.getAllInfosForCharacter(ch);
+        traits=dbTraits.getAllStatisticsForCharacter(ch);
+        skills=dbSkills.getAllSkillsForCharacter(ch);
+
+
+        Toast.makeText(this,infos+"", Toast.LENGTH_LONG);
     }
 
     @Override
@@ -63,6 +101,9 @@ public class CharacterView extends ActionBarActivity{
                 return true;
             case R.id.skill:
                 setContentView(R.layout.skills_view);
+                return true;
+            case R.id.dice:
+                setContentView(R.layout.dice_view);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

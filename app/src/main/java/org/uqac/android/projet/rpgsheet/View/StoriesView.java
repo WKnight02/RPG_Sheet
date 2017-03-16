@@ -32,19 +32,23 @@ public class StoriesView extends ActionBarActivity {
         final Collection<Story> stories=db.getAllStories();
 
         names=new ArrayList<>();
-        for (Story story:stories){
-            names.add(story.getTitle());
-        }
-        ArrayAdapter<String> adapter=new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, names);
-        view.setAdapter(adapter);
+        if(stories!=null){
+            for (Story story:stories){
+                names.add(story.getTitle());
+            }
+            ArrayAdapter<String> adapter=new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, names);
+            view.setAdapter(adapter);
 
-        view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                names.get(position);
-                setContentView(R.layout.story_view);
-            }
+                Intent intent = new Intent(StoriesView.this, StoryView.class);
+                String name = names.get(position);
+                intent.putExtra("name", name);
+                startActivity(intent);
+                }
         });
+        }
     }
 
 

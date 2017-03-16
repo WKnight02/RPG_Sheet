@@ -26,7 +26,7 @@
             tools:ignore="RtlHardcoded"
             android:contentDescription="@string/returnButton"
             android:layout_marginTop="5dp"
-            android:onClick="Return (CharactersView)"
+            android:onClick="Return"
             android:src="@mipmap/return_button"
             android:background="@drawable/abc_item_background_holo_light" />
 
@@ -72,6 +72,6 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="60dp"
         tools:ignore="RtlHardcoded"
-        android:onClick="createCharacter (CharactersView)" />
+        android:onClick="createCharacter" />
 
 </LinearLayout>

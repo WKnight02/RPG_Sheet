@@ -26,32 +26,34 @@ import java.util.Collection;
 public class CharactersView extends ActionBarActivity {
 
     private  ArrayList<String> names;
-    private CharacterDB db;
+    private CharacterDB dbCharacter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.characters_view);
 
         ListView view=(ListView) findViewById(R.id.CharactersList);
-        db=new CharacterDB(this);
-        final Collection<Character> characters=db.getAllCharacters();
+        dbCharacter=new CharacterDB(this);
+        final Collection<Character> characters=dbCharacter.getAllCharacters();
 
        names=new ArrayList<>();
-        for (Character ch:characters){
-            names.add(ch.getName());
-        }
-        ArrayAdapter<String> adapter=new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, names);
-        view.setAdapter(adapter);
-
-        view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Intent intent= new Intent(CharactersView.this, CharacterView.class);
-                String name =names.get(position);
-                intent.putExtra("name",name);
-                startActivity(intent);
+        if(characters!=null) {
+            for (Character ch : characters) {
+                names.add(ch.getName());
             }
-        });
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, names);
+            view.setAdapter(adapter);
+
+            view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                    Intent intent = new Intent(CharactersView.this, CharacterView.class);
+                    String name = names.get(position);
+                    intent.putExtra("name", name);
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
     @Override
@@ -75,9 +77,9 @@ public class CharactersView extends ActionBarActivity {
     }
 
     private void deleteCharacter(String name) {
-        Character ch= db.getCharacterByName(name);
+        Character ch= dbCharacter.getCharacterByName(name);
         if(ch!=null){
-            db.deleteCharacter(ch);
+            dbCharacter.deleteCharacter(ch);
         }
     }
 
@@ -89,13 +91,13 @@ public class CharactersView extends ActionBarActivity {
     public void createCharacter(View view){
         Character ch;
         long i;
-        if((i=db.getMaxId())==-1){
+        if((i=dbCharacter.getMaxId())==-1){
             ch=new Character("Character");
         }
         else{
             ch=new Character("Character"+(i+1));
         }
-        db.insertCharacter(ch);
+        dbCharacter.insertCharacter(ch);
         recreate();
     }
 }
