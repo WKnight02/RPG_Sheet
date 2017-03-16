@@ -1,54 +1,64 @@
 package org.uqac.android.projet.rpgsheet.View;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.TabHost;
 
-import org.uqac.android.projet.rpgsheet.DB.CharacterDB;
-import org.uqac.android.projet.rpgsheet.DB.Character_InfoDB;
-import org.uqac.android.projet.rpgsheet.DB.Character_SkillDB;
-import org.uqac.android.projet.rpgsheet.DB.Character_StatisticDB;
+import org.uqac.android.projet.rpgsheet.Fragment.DiceFrag;
+import org.uqac.android.projet.rpgsheet.Fragment.NamesAndInfoFrag;
+import org.uqac.android.projet.rpgsheet.Fragment.SkillsFrag;
+import org.uqac.android.projet.rpgsheet.Fragment.TraitsFrag;
 import org.uqac.android.projet.rpgsheet.R;
-import org.uqac.android.projet.rpgsheet.models.Character;
-import org.uqac.android.projet.rpgsheet.models.Info;
-import org.uqac.android.projet.rpgsheet.models.Inventory;
-import org.uqac.android.projet.rpgsheet.models.Skill;
-import org.uqac.android.projet.rpgsheet.models.Trait;
-
-import java.util.Collection;
-
 
 /**
  * Created by Bruno.J on 15/02/2017.
  */
-public class CharacterView extends ActionBarActivity{
+public class CharacterView extends FragmentActivity {
 
-    private CharacterDB dbCharacter;
-    private Character_InfoDB dbInfos;
-    private Character_SkillDB dbSkills;
-    private Character_StatisticDB dbTraits;
+    private String name;
 
-    private Character ch;
-    private Collection<Trait> traits;
-    private Collection<Info> infos;
-    private Collection<Skill> skills;
-    private Inventory inventory;
+    private TabHost tabHost;
+
+    private FragmentTransaction transaction;
+    private NamesAndInfoFrag namesAndInfoFrag;
+    private DiceFrag diceFrag;
+    private SkillsFrag skillsFrag;
+    private TraitsFrag traitsFrag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.name_infos_view);
+        setContentView(R.layout.character_view);
 
-        dbCharacter=new CharacterDB(this);
-        dbInfos=new Character_InfoDB(this);
-        dbSkills=new Character_SkillDB(this);
-        dbTraits=new Character_StatisticDB(this);
-/*
+        name=(String) getIntent().getExtras().get("name");
+
+        this.tabHost = (TabHost) findViewById(android.R.id.tabhost);
+
+        tabHost.addTab(tabHost.newTabSpec("nameAndInfo").setIndicator("Name and Informations").setContent(new Intent().setClass(this, NamesAndInfoFrag.class)));
+        tabHost.addTab(tabHost.newTabSpec("skill").setIndicator("Skills").setContent(new Intent().setClass(this, SkillsFrag.class)));
+        tabHost.addTab(tabHost.newTabSpec("trait").setIndicator("Traits").setContent(new Intent().setClass(this, TraitsFrag.class)));
+        tabHost.addTab(tabHost.newTabSpec("dice").setIndicator("Dice").setContent(new Intent().setClass(this, DiceFrag.class)));
+
+        namesAndInfoFrag = new NamesAndInfoFrag();
+        diceFrag= new DiceFrag();
+        skillsFrag= new SkillsFrag();
+        traitsFrag= new TraitsFrag();
+
+        if (findViewById(android.R.id.tabcontent) != null) {
+
+            if (savedInstanceState != null) {
+                return;
+            }
+            replaceFragment(namesAndInfoFrag);
+        }
+
+
+
+        /*
         ArrayList<String> todoItems=new ArrayList<String>();
 
         Cursor c = dbInfos.showAllTables();
@@ -69,44 +79,32 @@ public class CharacterView extends ActionBarActivity{
 
         }
         c.close();
-        dbInfos.close();
 */
-        String name= (String) getIntent().getExtras().get("name");
-        ch=dbCharacter.getCharacterByName(name);
-
-        infos=dbInfos.getAllInfosForCharacter(ch);
-        traits=dbTraits.getAllStatisticsForCharacter(ch);
-        skills=dbSkills.getAllSkillsForCharacter(ch);
-
-
-        Toast.makeText(this,infos+"", Toast.LENGTH_LONG);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        super.onCreateOptionsMenu(menu);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.onglets, menu);
-        return true;
+    public void replaceFragment(Fragment frag){
+        Bundle bundle=new Bundle();
+        bundle.putString("name", name);
+        frag.setArguments(bundle);
+        transaction=getFragmentManager().beginTransaction();
+        transaction.replace(android.R.id.tabcontent, frag);
+        transaction.commit();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch(item.getItemId()){
+    public void onClick(View v){
+        switch(v.getId()){
             case R.id.nameAndInfo:
-                setContentView(R.layout.name_infos_view);
-                return true;
-            case R.id.trait:
-                setContentView(R.layout.traits_view);
-                return true;
-            case R.id.skill:
-                setContentView(R.layout.skills_view);
-                return true;
+                replaceFragment(namesAndInfoFrag);
+                break;
+            case R.id.skills:
+                replaceFragment(skillsFrag);
+                break;
+            case R.id.traits:
+                replaceFragment(traitsFrag);
+                break;
             case R.id.dice:
-                setContentView(R.layout.dice_view);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+                replaceFragment(diceFrag);
+                break;
         }
     }
 

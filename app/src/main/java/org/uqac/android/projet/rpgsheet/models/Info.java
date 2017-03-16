@@ -57,6 +57,6 @@ public class Info {
     public void setId(long id){this.id=id;}
 
     public String toString(){
-        return "id:"+this.getId()+", label:"+this.getLabel()+", value:"+this.getValue();
+        return this.getLabel()+": "+this.getValue();
     }
 }
