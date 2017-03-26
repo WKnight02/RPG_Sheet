@@ -1,30 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+<!--
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1"
-    android:background="#81F781"
-    android:id="@android:id/tabhost"
+    android:background="@color/background_vert">
+-->
+    <android.support.v4.app.FragmentTabHost xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_vert"
+        android:id="@android:id/tabhost"
     >
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <TabWidget
-        android:id="@android:id/tabs"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="2"
+         <TabWidget
+         android:id="@android:id/tabs"
+         android:layout_width="match_parent"
+             android:layout_height="45dp"
             />
 
-        <FrameLayout
-            android:id="@android:id/tabcontent"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="8" />
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                 />
 
+            <!--
         <fragment android:name="org.uqac.android.projet.rpgsheet.Fragment.NamesAndInfoFrag"
         android:id="@+id/nameAndInfo"
         android:layout_width="match_parent"
@@ -35,18 +44,30 @@
         android:id="@+id/skills"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-            tools:layout="@layout/name_infos_view" />
+            tools:layout="@layout/skills_view" />
 
         <fragment android:name="org.uqac.android.projet.rpgsheet.Fragment.TraitsFrag"
         android:id="@+id/traits"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-            tools:layout="@layout/name_infos_view" />
+            tools:layout="@layout/story_view" />
 
         <fragment android:name="org.uqac.android.projet.rpgsheet.Fragment.DiceFrag"
             android:id="@+id/dice"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:layout="@layout/name_infos_view" />
+            tools:layout="@layout/traits_view" />
+            -->
+            <Button
+                android:text="@string/returnButton"
+                android:layout_width="266dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/button"
+                android:background="@android:drawable/btn_default"
+                android:gravity="center"
+                android:textAlignment="gravity"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="60dp"
+                android:onClick="Return" />
     </LinearLayout>
-</TabHost>
+    </android.support.v4.app.FragmentTabHost>

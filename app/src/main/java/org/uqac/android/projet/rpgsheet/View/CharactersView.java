@@ -3,6 +3,7 @@ package org.uqac.android.projet.rpgsheet.View;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,6 +28,7 @@ public class CharactersView extends ActionBarActivity {
 
     private  ArrayList<String> names;
     private CharacterDB dbCharacter;
+    private ArrayAdapter<String> adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,19 +38,21 @@ public class CharactersView extends ActionBarActivity {
         dbCharacter=new CharacterDB(this);
         final Collection<Character> characters=dbCharacter.getAllCharacters();
 
-       names=new ArrayList<>();
+        names=new ArrayList<>();
         if(characters!=null) {
             for (Character ch : characters) {
                 names.add(ch.getName());
             }
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, names);
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, names);
             view.setAdapter(adapter);
 
             view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                     Intent intent = new Intent(CharactersView.this, CharacterView.class);
-                    String name = names.get(position);
+                    String name=adapter.getItem(position);
+                    Log.d("name", name);
+
                     intent.putExtra("name", name);
                     startActivity(intent);
                 }
@@ -67,10 +71,13 @@ public class CharactersView extends ActionBarActivity {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+        String name=adapter.getItem(info.position);
         switch (item.getItemId()) {
             case R.id.delete:
-                deleteCharacter(names.get(info.position));
+                deleteCharacter(name);
                 return true;
+            case R.id.rename:
+                //alertDialog
             default:
                 return super.onContextItemSelected(item);
         }
@@ -86,6 +93,10 @@ public class CharactersView extends ActionBarActivity {
     public void Return(View view){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    private void renameCharacter(String newName, String name){
+
     }
 
     public void createCharacter(View view){

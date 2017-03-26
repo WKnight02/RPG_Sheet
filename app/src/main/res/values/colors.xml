@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="vert_fonce" >#607F2F</color>
+    <color name="blanc" >#ffffff</color>
+    <color name="marron">#d77614</color>
+    <color name="background_vert">#81F781</color>
+</resources>

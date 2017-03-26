@@ -1,6 +1,6 @@
 package org.uqac.android.projet.rpgsheet.Fragment;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +19,7 @@ public class TraitsFrag extends Fragment{
         // Inflate the layout for this fragment
 
 
-        return inflater.inflate(R.layout.name_infos_view, container, false);
+        return inflater.inflate(R.layout.traits_view, container, false);
     }
 
 }
