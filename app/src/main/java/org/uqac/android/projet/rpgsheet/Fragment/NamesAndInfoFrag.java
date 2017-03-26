@@ -40,6 +40,15 @@ public class NamesAndInfoFrag extends Fragment{
         View view = inflater.inflate(R.layout.name_infos_view, container, false);
         ListView listInfos = (ListView) view.findViewById(R.id.infos);
 
+        if (getArguments() == null ||(activity = getActivity()) == null) {
+            return view;
+        }
+
+        name = (String) getArguments().getString("name");
+
+        dbCharacter = new CharacterDB(activity);
+        dbInfos = new Character_InfoDB(activity);
+
         //Button add new info
         Button button=(Button) view.findViewById(R.id.newInfo);
         button.setOnClickListener(new View.OnClickListener() {
@@ -50,9 +59,11 @@ public class NamesAndInfoFrag extends Fragment{
 
                     final EditText labelInput = new EditText(getActivity());
                     labelInput.setInputType(InputType.TYPE_CLASS_TEXT);
+                    labelInput.setHint(R.string.label);
 
                     final EditText infoInput = new EditText(getActivity());
                     infoInput.setInputType(InputType.TYPE_CLASS_TEXT);
+                    infoInput.setHint(R.string.description);
 
                     final LinearLayout ly=new LinearLayout(getActivity());
                     ly.setOrientation(LinearLayout.HORIZONTAL);
@@ -61,7 +72,6 @@ public class NamesAndInfoFrag extends Fragment{
                     ly.addView(labelInput);
                     ly.addView(infoInput);
                     builder.setView(ly);
-
 
                     // Set up the buttons
                     builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
@@ -74,6 +84,7 @@ public class NamesAndInfoFrag extends Fragment{
                             dbInfos.insertInfo(newInfo, ch);
                         }
                     });
+
                     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -85,28 +96,17 @@ public class NamesAndInfoFrag extends Fragment{
             }
         });
 
-        if (getArguments() == null) {
-            return view;
-        }
+        ch = dbCharacter.getCharacterByName(name);
+        infos = dbInfos.getAllInfosForCharacter(ch);
+        ArrayList<String> listInfoString = new ArrayList<String>();
 
-        name = (String) getArguments().getString("name");
-
-        if ((activity = getActivity()) != null) {
-            dbCharacter = new CharacterDB(activity);
-            dbInfos = new Character_InfoDB(activity);
-
-            ch = dbCharacter.getCharacterByName(name);
-            infos = dbInfos.getAllInfosForCharacter(ch);
-            ArrayList<String> listInfoString = new ArrayList<String>();
-
-            if (infos != null) {
-                for (Info info : infos) {
-                    listInfoString.add(info.toString());
-                }
-
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, android.R.layout.simple_list_item_1, listInfoString);
-                listInfos.setAdapter(adapter);
+        if (infos != null) {
+            for (Info info : infos) {
+                listInfoString.add(info.toString());
             }
+
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, android.R.layout.simple_list_item_1, listInfoString);
+            listInfos.setAdapter(adapter);
         }
 
         return view;

@@ -20,5 +20,7 @@
     <string name="nameandinfo">NameAndInfo</string>
     <string name="skill">Skill</string>
     <string name="trait">Trait</string>
+    <string name="label">Label</string>
+    <string name="description">Description</string>
 
 </resources>
