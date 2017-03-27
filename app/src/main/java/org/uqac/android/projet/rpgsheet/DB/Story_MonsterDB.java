@@ -25,16 +25,33 @@ public class Story_MonsterDB extends DBBase{
         super(pContext);
     }
 
+    public long getMaxId(){
+        open();
+
+        Cursor curs = mDb.query(TABLE_NAME, new String[]{ IDMonster }, null, null, null, null, IDMonster + " DESC", "1");
+        if(curs.getCount() == 0){
+            close();
+            return -1;
+        }
+
+        curs.moveToFirst();
+        long retVal = curs.getLong(curs.getColumnIndex(IDMonster));
+        close();
+
+        return retVal;
+    }
+
     public long insertMonster(Monster m, Story story) {
         open();
+
         long retVal;
-        long idStory=story.getId();
+        long idStory = story.getId();
 
         ContentValues values = new ContentValues();
 
         values.put(IDStory, idStory);
         values.put(NAME, m.getName());
-        retVal=mDb.insert(TABLE_NAME, null, values);
+        retVal = mDb.insert(TABLE_NAME, null, values);
 
         if(retVal == -1){
             close();

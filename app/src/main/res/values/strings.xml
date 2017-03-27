@@ -13,8 +13,10 @@
     <string name="returnButton">Return</string>
     <string name="create_new_story">Create new Story</string>
     <string name="stories">Stories</string>
+    <string name="story">Story</string>
     <string name="dice">Dice</string>
     <string name="lore">Lore</string>
+    <string name="monster">Monster</string>
     <string name="monsters">Monsters</string>
     <string name="items">Items</string>
     <string name="nameandinfo">NameAndInfo</string>

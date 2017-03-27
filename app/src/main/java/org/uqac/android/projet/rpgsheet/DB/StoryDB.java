@@ -27,14 +27,16 @@ public class StoryDB extends DBBase {
         open();
         long id;
 
-        ContentValues values=new ContentValues();
+        ContentValues values = new ContentValues();
         values.put(TITLE, story.getTitle());
         values.put(LORE, story.getLore());
-        id=mDb.insert(TABLE_NAME, null, values);
-        if(id==-1){
+        id = mDb.insert(TABLE_NAME, null, values);
+
+        if(id == -1){
             close();
             return -1;
         }
+
         story.setId(id);
         close();
         return 0;
@@ -43,11 +45,13 @@ public class StoryDB extends DBBase {
     public long updateStory(Story story){
         open();
         long retVal;
-        long id=story.getId();
+        long id = story.getId();
+
         ContentValues values = new ContentValues();
         values.put(TITLE, story.getTitle());
         values.put(LORE, story.getLore());
-        retVal=mDb.update(TABLE_NAME, values, ID+"=?", new String[]{id+""});
+        retVal = mDb.update(TABLE_NAME, values, ID+"=?", new String[]{id+""});
+
         close();
         return retVal;
     }

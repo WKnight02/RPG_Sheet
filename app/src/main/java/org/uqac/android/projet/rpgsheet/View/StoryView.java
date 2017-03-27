@@ -10,7 +10,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TabHost;
 
 import org.uqac.android.projet.rpgsheet.DB.StoryDB;
 import org.uqac.android.projet.rpgsheet.DB.Story_MonsterDB;
@@ -40,26 +43,42 @@ public class StoryView extends ActionBarActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.name_infos_view);
+        setContentView(R.layout.story_view);
         String title = (String)getIntent().getExtras().get("name");
         dbStory = new StoryDB(this);
 
         story = dbStory.getStoryByTile(title);
 
-        ListView view=(ListView) findViewById(R.id.CharactersList);
+        ListView monsterList = (ListView)findViewById(R.id.monstersListView);
+        Button addMonster = (Button)findViewById(R.id.storyTabMonstersAddMonster);
         Story_MonsterDB dbMonters = new Story_MonsterDB(this);
         final Collection<Monster> monsters = dbMonters.getAllMonstersForStory(story);
 
-        names = new ArrayList<>();
+        // Tabs
+        TabHost.TabSpec spec;
+        TabHost host = (TabHost)findViewById(R.id.storyTabs);
+        host.setup();
+
+        spec = host.newTabSpec("Story");
+        spec.setContent(R.id.storyTabStory);
+        spec.setIndicator(getString(R.string.story));
+        host.addTab(spec);
+
+        spec = host.newTabSpec("Monsters");
+        spec.setContent(R.id.storyTabMonsters);
+        spec.setIndicator(getString(R.string.monsters));
+        host.addTab(spec);
+
+        names = new ArrayList<String>();
         if(monsters != null) {
             for (Monster monster : monsters) {
                 names.add(monster.getName());
             }
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, names);
-            view.setAdapter(adapter);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, names);
+            monsterList.setAdapter(adapter);
 
-            view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            monsterList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                     Intent intent = new Intent(StoryView.this, MonsterView.class);
@@ -69,6 +88,17 @@ public class StoryView extends ActionBarActivity{
                 }
             });
         }
+    }
+
+    public void addMonster(View view) {
+        Story_MonsterDB dbMonster = new Story_MonsterDB(this);
+        long i = dbMonster.getMaxId();
+
+        Monster monster = new Monster("monster" + (i+1));
+        dbMonster.insertMonster(monster, story);
+        story.addMonster(monster);
+
+        recreate();
     }
 
     @Override
@@ -99,5 +129,16 @@ public class StoryView extends ActionBarActivity{
     public void Return(View view){
         Intent intent = new Intent(this, CharactersView.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onPause() {
+        // Mise à jour des données lorsque l'on met juste en pause l'activité.
+        super.onPause();
+
+        EditText storyText = (EditText)findViewById(R.id.storyTextML);
+
+        story.setLore(storyText.getText().toString());
+        dbStory.updateStory(story);
     }
 }
