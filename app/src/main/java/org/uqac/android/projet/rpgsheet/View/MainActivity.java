@@ -6,7 +6,10 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
+import org.uqac.android.projet.rpgsheet.DB.DBBase;
+import org.uqac.android.projet.rpgsheet.DB.DatabaseHandler;
 import org.uqac.android.projet.rpgsheet.R;
 
 
@@ -34,8 +37,20 @@ public class MainActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case R.id.action_settings:
+                return true;
+
+            case R.id.database_reset:
+                DBBase db = new DBBase(this);
+
+                db.open();
+                db.getDbHandler().onUpgrade(db.getDb(), 0, 1);
+                db.close();
+
+                Toast.makeText(this, "Database Cleaned", Toast.LENGTH_SHORT).show();
+
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
