@@ -80,26 +80,31 @@ public class StoryDB extends DBBase {
 
     public long getMaxId(){
         open();
-        Cursor curs= mDb.query(TABLE_NAME, new String[]{ID}, null, null, null, null, ID, "1");
-        if(curs.getCount()==0){
+
+        Cursor curs= mDb.query(TABLE_NAME, new String[]{ID}, null, null, null, null, ID + " DESC", "1");
+        if(curs.getCount() == 0){
             close();
             return -1;
         }
+
+        curs.moveToFirst();
         long retVal=curs.getLong(0);
         close();
+
         return retVal;
     }
 
     public Story getStoryByTile(String name){
         open();
-        Cursor curs= mDb.query(TABLE_NAME, new String[]{ID,TITLE,LORE}, "title='"+name+"'", null, null, null, null, "1");
-        if(curs.getCount()==0) {
+        Cursor curs = mDb.query(TABLE_NAME, new String[]{ID,TITLE,LORE}, "title='"+name+"'", null, null, null, null, "1");
+        if(curs.getCount() == 0) {
             curs.close();
             close();
             return null;
         }
+
         curs.moveToFirst();
-        Story story=new Story(curs.getString(1));
+        Story story = new Story(curs.getString(1));
         story.setId(curs.getLong(0));
         curs.close();
         close();

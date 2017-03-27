@@ -27,27 +27,30 @@ public class StoriesView extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_master_view);
-        ListView view=(ListView) findViewById(R.id.StoriesList);
-        db= new StoryDB(this);
-        final Collection<Story> stories=db.getAllStories();
 
-        names=new ArrayList<>();
-        if(stories!=null){
-            for (Story story:stories){
+        ListView view = (ListView)findViewById(R.id.StoriesList);
+        db = new StoryDB(this);
+
+        final Collection<Story> stories = db.getAllStories();
+
+        names = new ArrayList<>();
+        if(stories != null){
+            for (Story story : stories){
                 names.add(story.getTitle());
             }
+
             ArrayAdapter<String> adapter=new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, names);
             view.setAdapter(adapter);
 
             view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Intent intent = new Intent(StoriesView.this, StoryView.class);
-                String name = names.get(position);
-                intent.putExtra("name", name);
-                startActivity(intent);
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                    Intent intent = new Intent(StoriesView.this, StoryView.class);
+                    String name = names.get(position);
+                    intent.putExtra("name", name);
+                    startActivity(intent);
                 }
-        });
+            });
         }
     }
 
@@ -80,14 +83,16 @@ public class StoriesView extends ActionBarActivity {
     }
 
     public void createStory(View view){
+        long i = db.getMaxId();
         Story story;
-        long i;
-        if((i=db.getMaxId())==-1){
+
+        if(i == -1){
             story=new Story("Story");
         }
         else{
             story=new Story("Story"+(i+1));
         }
+
         db.insertStory(story);
         recreate();
     }
