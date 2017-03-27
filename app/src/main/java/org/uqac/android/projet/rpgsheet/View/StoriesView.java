@@ -78,8 +78,11 @@ public class StoriesView extends ActionBarActivity {
     }
 
     public void Return(View view){
+        /* Old
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        //*/
+        finish();
     }
 
     public void createStory(View view){

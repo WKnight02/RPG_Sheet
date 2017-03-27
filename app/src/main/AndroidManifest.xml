@@ -12,22 +12,15 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".View.CharactersView">
-        </activity>
+        <activity android:name=".View.CharactersView"></activity>
 
-        <activity android:name=".View.CharacterView">
+        <activity android:name=".View.CharacterView"></activity>
 
-        </activity>
-
-        <activity android:name=".View.StoriesView">
-
-        </activity>
+        <activity android:name=".View.StoriesView"></activity>
 
         <activity android:name=".View.StoryView"></activity>
         

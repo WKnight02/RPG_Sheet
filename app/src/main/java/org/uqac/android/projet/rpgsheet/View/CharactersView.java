@@ -91,8 +91,11 @@ public class CharactersView extends ActionBarActivity {
     }
 
     public void Return(View view){
+        /* Old
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        //*/
+        finish();
     }
 
     private void renameCharacter(String newName, String name){
