@@ -94,9 +94,11 @@ public class StoryDB extends DBBase {
         return retVal;
     }
 
-    public Story getStoryByTile(String name){
+    public Story getStoryByTile(String title){
+        Story story;
         open();
-        Cursor curs = mDb.query(TABLE_NAME, new String[]{ID,TITLE,LORE}, "title='"+name+"'", null, null, null, null, "1");
+
+        Cursor curs = mDb.query(TABLE_NAME, new String[]{ ID, TITLE, LORE}, String.format("%s='%s'", TITLE, title), null, null, null, null, "1");
         if(curs.getCount() == 0) {
             curs.close();
             close();
@@ -104,10 +106,13 @@ public class StoryDB extends DBBase {
         }
 
         curs.moveToFirst();
-        Story story = new Story(curs.getString(1));
-        story.setId(curs.getLong(0));
+        story = new Story(curs.getString(curs.getColumnIndex(TITLE)));
+        story.setId(curs.getLong(curs.getColumnIndex(ID)));
+        story.setLore(curs.getString(curs.getColumnIndex(LORE)));
+
         curs.close();
         close();
+
         /*
         Collection<Info> infos=getAllInfos(ch);
         for(Info info:infos){
@@ -123,7 +128,8 @@ public class StoryDB extends DBBase {
         for(Skill skill:skills){
             //ch.addSkill(skill);
         }
-           */
+        //*/
+
         return story;
     }
 }

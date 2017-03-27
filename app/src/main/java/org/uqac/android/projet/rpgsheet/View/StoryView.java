@@ -3,6 +3,7 @@ package org.uqac.android.projet.rpgsheet.View;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -40,19 +41,21 @@ public class StoryView extends ActionBarActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.name_infos_view);
-        String title= (String) getIntent().getExtras().get("name");
+        String title = (String)getIntent().getExtras().get("name");
+        dbStory = new StoryDB(this);
 
-        story=dbStory.getStoryByTile(title);
+        story = dbStory.getStoryByTile(title);
 
         ListView view=(ListView) findViewById(R.id.CharactersList);
-        Story_MonsterDB dbMonters=new Story_MonsterDB(this);
-        final Collection<Monster> monsters=dbMonters.getAllMonstersForStory(story);
+        Story_MonsterDB dbMonters = new Story_MonsterDB(this);
+        final Collection<Monster> monsters = dbMonters.getAllMonstersForStory(story);
 
-        names=new ArrayList<>();
-        if(monsters!=null) {
+        names = new ArrayList<>();
+        if(monsters != null) {
             for (Monster monster : monsters) {
                 names.add(monster.getName());
             }
+
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, names);
             view.setAdapter(adapter);
 
