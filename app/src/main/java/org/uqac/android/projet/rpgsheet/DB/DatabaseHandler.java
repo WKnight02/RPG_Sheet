@@ -155,27 +155,34 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldV, int newV) {
         if(oldV != newV) {
+            onCreate(db); // Start fresh if anything crashed before
+
             String drops = "" +
-                    "Drop table if exists Character_Item;\n" + // Must be first else drop fails
-                    "Drop table if exists Character;\n" +
                     "Drop table if exists Item;\n" +
-                    "Drop table if exists Monster;\n" +
-                    "Drop table if exists Story;\n" +
-                    "Drop table if exists Character_Skill;\n" +
-                    "Drop table if exists Story_Monster;\n" +
-                    "Drop table if exists Character_Statistic;\n" +
+                    "Drop table if exists Item_Statistic;\n" +
+                    "Drop table if exists Character_Item;\n" +
+
+                    "Drop table if exists Character;\n" +
                     "Drop table if exists Character_Info;\n" +
+                    "Drop table if exists Character_Skill;\n" +
+                    "Drop table if exists Character_Statistic;\n" +
+
+                    "Drop table if exists Monster;\n" +
+                    "Drop table if exists Monster_Info;\n" +
                     "Drop table if exists Monster_Skill;\n" +
                     "Drop table if exists Monster_Statistic;\n" +
-                    "Drop table if exists Monster_Info;\n" +
-                    "Drop table if exists Item_Statistic;\n" +
+
+                    "Drop table if exists Story;\n" +
+                    "Drop table if exists Story_Monster;\n" +
                     "";
 
+            // Clean drops
             for(String drop : drops.split("\n")) {
                 Log.w("drop", drop);
                 db.execSQL(drop);
             }
 
+            // Recreating fresh
             onCreate(db);
         }
     }
