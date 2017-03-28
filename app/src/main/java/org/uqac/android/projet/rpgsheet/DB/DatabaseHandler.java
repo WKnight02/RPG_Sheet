@@ -157,27 +157,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if(oldV != newV) {
             onCreate(db); // Start fresh if anything crashed before
 
-            String drops = "" +
-                    "Drop table if exists Item;\n" +
-                    "Drop table if exists Item_Statistic;\n" +
-                    "Drop table if exists Character_Item;\n" +
+            String[] drops = new String[] {
+                "Drop table if exists Item;",
+                "Drop table if exists Item_Statistic;",
+                "Drop table if exists Character_Item;",
 
-                    "Drop table if exists Character;\n" +
-                    "Drop table if exists Character_Info;\n" +
-                    "Drop table if exists Character_Skill;\n" +
-                    "Drop table if exists Character_Statistic;\n" +
+                "Drop table if exists Character;",
+                "Drop table if exists Character_Info;",
+                "Drop table if exists Character_Skill;",
+                "Drop table if exists Character_Statistic;",
 
-                    "Drop table if exists Monster;\n" +
-                    "Drop table if exists Monster_Info;\n" +
-                    "Drop table if exists Monster_Skill;\n" +
-                    "Drop table if exists Monster_Statistic;\n" +
+                "Drop table if exists Monster;",
+                "Drop table if exists Monster_Info;",
+                "Drop table if exists Monster_Skill;",
+                "Drop table if exists Monster_Statistic;",
 
-                    "Drop table if exists Story;\n" +
-                    "Drop table if exists Story_Monster;\n" +
-                    "";
+                "Drop table if exists Story;",
+                "Drop table if exists Story_Monster;",
+                ""
+            };
 
             // Clean drops
-            for(String drop : drops.split("\n")) {
+            for(String drop : drops) {
                 Log.w("drop", drop);
                 db.execSQL(drop);
             }
