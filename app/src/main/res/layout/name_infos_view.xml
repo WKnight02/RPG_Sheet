@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_vert"
     android:weightSum="1">
 
     <TextView
-        android:text="Informations"
-        android:textSize="30dp"
+        android:text="@string/informations"
+        android:textSize="30sp"
         android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,17 +18,17 @@
 
 
     <ListView
-        android:layout_width="match_parent"
-        android:layout_height="327dp"
         android:id="@+id/infos"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        android:layout_weight="0.83">
+        tools:ignore="InefficientWeight">
 
     </ListView>
 
     <Button
-        android:text="Add a new information"
+        android:text="@string/add_a_new_information"
         android:layout_width="266dp"
         android:layout_height="wrap_content"
         android:id="@+id/newInfo"
@@ -36,6 +37,6 @@
         android:textAlignment="gravity"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="60dp"
-         />
+        tools:ignore="RtlHardcoded" />
 
 </LinearLayout>

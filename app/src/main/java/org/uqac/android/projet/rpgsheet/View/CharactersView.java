@@ -1,17 +1,21 @@
 package org.uqac.android.projet.rpgsheet.View;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.InputType;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
 
 import org.uqac.android.projet.rpgsheet.DB.CharacterDB;
 import org.uqac.android.projet.rpgsheet.R;
@@ -103,15 +107,37 @@ public class CharactersView extends ActionBarActivity {
     }
 
     public void createCharacter(View view){
-        Character ch;
-        long i;
-        if((i=dbCharacter.getMaxId())==-1){
-            ch=new Character("Character");
-        }
-        else{
-            ch=new Character("Character"+(i+1));
-        }
-        dbCharacter.insertCharacter(ch);
-        recreate();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Set the name of your Character:");
+
+        final EditText nameInput = new EditText(this);
+        nameInput.setInputType(InputType.TYPE_CLASS_TEXT);
+        nameInput.setHint(R.string.Name);
+
+        builder.setView(nameInput);
+
+        // Set up the buttons
+        builder.setPositiveButton("Create", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String name = nameInput.getText().toString();
+
+                Character ch = new Character(name);
+                dbCharacter.insertCharacter(ch);
+
+                recreate();
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+
     }
 }

@@ -3,7 +3,6 @@ package org.uqac.android.projet.rpgsheet.View;
 //import android.app.FragmentTransaction;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -122,8 +121,10 @@ public class CharacterView extends FragmentActivity {
     }
 
     public void Return(View view){
+        /*
         Intent intent = new Intent(this, CharactersView.class);
-        startActivity(intent);
+        startActivity(intent);*/
+        finish();
     }
 
     private static View createTabView(Context context, String text) {

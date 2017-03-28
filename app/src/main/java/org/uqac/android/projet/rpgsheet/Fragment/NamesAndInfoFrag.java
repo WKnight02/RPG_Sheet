@@ -82,6 +82,12 @@ public class NamesAndInfoFrag extends Fragment{
 
                             Info newInfo=new Info(label, info);
                             dbInfos.insertInfo(newInfo, ch);
+
+                            Fragment currentFragment = getActivity().getSupportFragmentManager().findFragmentById(android.R.id.tabcontent);
+                            if (currentFragment instanceof NamesAndInfoFrag) {
+
+                                getActivity().getSupportFragmentManager().beginTransaction().detach(currentFragment).attach(currentFragment);
+                            }
                         }
                     });
 
