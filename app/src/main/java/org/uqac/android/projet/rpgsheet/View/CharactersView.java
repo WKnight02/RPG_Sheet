@@ -39,6 +39,8 @@ public class CharactersView extends ActionBarActivity {
         setContentView(R.layout.characters_view);
 
         ListView view=(ListView) findViewById(R.id.CharactersList);
+        registerForContextMenu(view);
+
         dbCharacter=new CharacterDB(this);
         final Collection<Character> characters=dbCharacter.getAllCharacters();
 
@@ -68,8 +70,11 @@ public class CharactersView extends ActionBarActivity {
     public void onCreateContextMenu(ContextMenu menu, View v,
                                     ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.object_selected, menu);
+        if (v.getId() == R.id.CharactersList) {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.object_selected, menu);
+
+        }
     }
 
     @Override
@@ -81,7 +86,7 @@ public class CharactersView extends ActionBarActivity {
                 deleteCharacter(name);
                 return true;
             case R.id.rename:
-                //alertDialog
+                renameCharacter(name);
             default:
                 return super.onContextItemSelected(item);
         }
@@ -100,10 +105,6 @@ public class CharactersView extends ActionBarActivity {
         startActivity(intent);
         //*/
         finish();
-    }
-
-    private void renameCharacter(String newName, String name){
-
     }
 
     public void createCharacter(View view){
@@ -125,6 +126,41 @@ public class CharactersView extends ActionBarActivity {
 
                 Character ch = new Character(name);
                 dbCharacter.insertCharacter(ch);
+
+                recreate();
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+
+    }
+
+    public void renameCharacter(final String oldName) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Set the name of your Character:");
+
+        final EditText nameInput = new EditText(this);
+        nameInput.setInputType(InputType.TYPE_CLASS_TEXT);
+        nameInput.setHint(R.string.Name);
+
+        builder.setView(nameInput);
+
+        // Set up the buttons
+        builder.setPositiveButton("Rename", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String name = nameInput.getText().toString();
+
+                Character ch = dbCharacter.getCharacterByName(oldName);
+                ch.setName(name);
+                dbCharacter.updateCharacter(ch);
 
                 recreate();
             }
