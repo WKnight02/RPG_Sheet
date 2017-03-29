@@ -29,7 +29,7 @@ public class Character {
     }
 
     public Character setName(String name) {
-        if (name.length() > NAME_MIN_CHARACTERS) this.name = name;
+        if (name.length() >= NAME_MIN_CHARACTERS) this.name = name;
         else throw new IllegalArgumentException(String.format(Locale.ENGLISH, "Name should be at least 3 characters long (got %d)", name.length()));
         return this;
     }

@@ -31,11 +31,6 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <ListView
-                        android:id="@+id/monstersListView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
                     <Button
                         android:id="@+id/storyTabMonstersAddMonster"
                         android:layout_width="match_parent"
@@ -43,6 +38,12 @@
                         android:onClick="addMonster"
                         android:text="Add Monster"
                         android:textAlignment="center" />
+
+                    <ListView
+                        android:id="@+id/monstersListView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -56,11 +57,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:ems="10"
+                        android:gravity="top|left"
                         android:hint="notepad area"
                         android:inputType="textMultiLine"
                         android:singleLine="false"
                         android:textAlignment="viewStart"
                         android:textSize="14sp" />
+
                 </LinearLayout>
 
             </FrameLayout>

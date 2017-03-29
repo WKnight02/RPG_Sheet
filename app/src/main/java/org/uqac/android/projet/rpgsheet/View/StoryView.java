@@ -3,7 +3,6 @@ package org.uqac.android.projet.rpgsheet.View;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -32,13 +31,17 @@ import java.util.Collection;
  */
 public class StoryView extends ActionBarActivity{
 
-    private ArrayList<String> names;
+    private ArrayList<String> monsterNames;
     private Collection<Trait> traits;
     private Collection<Info> infos;
     private Collection<Skill> skills;
     private Story story;
 
     private StoryDB dbStory;
+
+    private ListView monsterList;
+    private EditText loreText;
+    private Button addMonster;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +52,12 @@ public class StoryView extends ActionBarActivity{
 
         story = dbStory.getStoryByTile(title);
 
-        ListView monsterList = (ListView)findViewById(R.id.monstersListView);
-        Button addMonster = (Button)findViewById(R.id.storyTabMonstersAddMonster);
+        monsterList = (ListView)findViewById(R.id.monstersListView);
+        addMonster = (Button)findViewById(R.id.storyTabMonstersAddMonster);
+        loreText = (EditText)findViewById(R.id.storyTextML);
+
+        loreText.setText(story.getLore());
+
         Story_MonsterDB dbMonters = new Story_MonsterDB(this);
         final Collection<Monster> monsters = dbMonters.getAllMonstersForStory(story);
 
@@ -69,20 +76,20 @@ public class StoryView extends ActionBarActivity{
         spec.setIndicator(getString(R.string.monsters));
         host.addTab(spec);
 
-        names = new ArrayList<String>();
+        monsterNames = new ArrayList<String>();
         if(monsters != null) {
             for (Monster monster : monsters) {
-                names.add(monster.getName());
+                monsterNames.add(monster.getName());
             }
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, names);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, monsterNames);
             monsterList.setAdapter(adapter);
 
             monsterList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                     Intent intent = new Intent(StoryView.this, MonsterView.class);
-                    String name = names.get(position);
+                    String name = monsterNames.get(position);
                     intent.putExtra("name", name);
                     startActivity(intent);
                 }
@@ -103,9 +110,12 @@ public class StoryView extends ActionBarActivity{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
+        /*
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.onglets_story, menu);
+        //*/
+
         return true;
     }
 
@@ -134,11 +144,11 @@ public class StoryView extends ActionBarActivity{
     @Override
     public void onPause() {
         // Mise à jour des données lorsque l'on met juste en pause l'activité.
-        super.onPause();
+        loreText = (EditText)findViewById(R.id.storyTextML);
 
-        EditText storyText = (EditText)findViewById(R.id.storyTextML);
-
-        story.setLore(storyText.getText().toString());
+        story.setLore(loreText.getText().toString());
         dbStory.updateStory(story);
+
+        super.onPause();
     }
 }

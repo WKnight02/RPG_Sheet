@@ -1,6 +1,7 @@
 package org.uqac.android.projet.rpgsheet.View;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.uqac.android.projet.rpgsheet.DB.CharacterDB;
 import org.uqac.android.projet.rpgsheet.R;
@@ -30,7 +32,7 @@ import java.util.Collection;
 
 public class CharactersView extends ActionBarActivity {
 
-    private  ArrayList<String> names;
+    private ArrayList<String> names;
     private CharacterDB dbCharacter;
     private ArrayAdapter<String> adapter;
     @Override
@@ -38,17 +40,18 @@ public class CharactersView extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.characters_view);
 
-        ListView view=(ListView) findViewById(R.id.CharactersList);
+        ListView view = (ListView) findViewById(R.id.CharactersList);
         registerForContextMenu(view);
 
-        dbCharacter=new CharacterDB(this);
+        dbCharacter = new CharacterDB(this);
         final Collection<Character> characters=dbCharacter.getAllCharacters();
 
-        names=new ArrayList<>();
-        if(characters!=null) {
+        names = new ArrayList<>();
+        if(characters != null) {
             for (Character ch : characters) {
                 names.add(ch.getName());
             }
+
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, names);
             view.setAdapter(adapter);
 
@@ -56,7 +59,7 @@ public class CharactersView extends ActionBarActivity {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                     Intent intent = new Intent(CharactersView.this, CharacterView.class);
-                    String name=adapter.getItem(position);
+                    String name = adapter.getItem(position);
                     Log.d("name", name);
 
                     intent.putExtra("name", name);
@@ -67,35 +70,40 @@ public class CharactersView extends ActionBarActivity {
     }
 
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v,
-                                    ContextMenu.ContextMenuInfo menuInfo) {
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
+
         if (v.getId() == R.id.CharactersList) {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.object_selected, menu);
-
         }
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-        String name=adapter.getItem(info.position);
+        String name = adapter.getItem(info.position);
+
         switch (item.getItemId()) {
+
             case R.id.delete:
                 deleteCharacter(name);
                 return true;
+
             case R.id.rename:
                 renameCharacter(name);
+                return true;
+
             default:
                 return super.onContextItemSelected(item);
         }
     }
 
     private void deleteCharacter(String name) {
-        Character ch= dbCharacter.getCharacterByName(name);
-        if(ch!=null){
+        Character ch = dbCharacter.getCharacterByName(name);
+        if(ch != null) {
             dbCharacter.deleteCharacter(ch);
+            recreate();
         }
     }
 
@@ -117,6 +125,7 @@ public class CharactersView extends ActionBarActivity {
         nameInput.setHint(R.string.Name);
 
         builder.setView(nameInput);
+        final Context context = this;
 
         // Set up the buttons
         builder.setPositiveButton("Create", new DialogInterface.OnClickListener() {
@@ -124,10 +133,14 @@ public class CharactersView extends ActionBarActivity {
             public void onClick(DialogInterface dialog, int which) {
                 String name = nameInput.getText().toString();
 
-                Character ch = new Character(name);
-                dbCharacter.insertCharacter(ch);
+                try {
+                    Character ch = new Character(name);
+                    dbCharacter.insertCharacter(ch);
+                    recreate();
 
-                recreate();
+                } catch (Exception e) {
+                    Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -151,6 +164,7 @@ public class CharactersView extends ActionBarActivity {
         nameInput.setHint(R.string.Name);
 
         builder.setView(nameInput);
+        final Context context = this;
 
         // Set up the buttons
         builder.setPositiveButton("Rename", new DialogInterface.OnClickListener() {
@@ -159,10 +173,15 @@ public class CharactersView extends ActionBarActivity {
                 String name = nameInput.getText().toString();
 
                 Character ch = dbCharacter.getCharacterByName(oldName);
-                ch.setName(name);
-                dbCharacter.updateCharacter(ch);
 
-                recreate();
+                try {
+                    ch.setName(name);
+                    dbCharacter.updateCharacter(ch);
+                    recreate();
+
+                } catch (Exception e) {
+                    Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

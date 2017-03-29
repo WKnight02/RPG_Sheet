@@ -154,7 +154,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldV, int newV) {
-        if(oldV != newV) {
+        if (!db.isOpen()) {
+            Log.w("DB STATE", "DATABASE IS NOT OPENED WHILE UPGRADING");
+        }
+
+        if (oldV != newV) {
             onCreate(db); // Start fresh if anything crashed before
 
             String[] drops = new String[] {
@@ -173,8 +177,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "Drop table if exists Monster_Statistic;",
 
                 "Drop table if exists Story;",
-                "Drop table if exists Story_Monster;",
-                ""
+                "Drop table if exists Story_Monster;"
             };
 
             // Clean drops
