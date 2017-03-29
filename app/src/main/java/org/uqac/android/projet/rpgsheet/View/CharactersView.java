@@ -44,7 +44,7 @@ public class CharactersView extends ActionBarActivity {
         registerForContextMenu(view);
 
         dbCharacter = new CharacterDB(this);
-        final Collection<Character> characters=dbCharacter.getAllCharacters();
+        final Collection<Character> characters = dbCharacter.getAllCharacters();
 
         names = new ArrayList<>();
         if(characters != null) {

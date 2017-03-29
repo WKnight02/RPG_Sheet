@@ -24,7 +24,7 @@ public class Story {
     }
 
     public Story setTitle(String title) {
-        if (title.length() > NAME_MIN_CHARACTERS) this.title = title;
+        if (title.length() >= NAME_MIN_CHARACTERS) this.title = title;
         else throw new IllegalArgumentException(String.format(Locale.ENGLISH, "Name should be at least 3 characters long (got %d)", title.length()));
         return this;
     }
@@ -39,14 +39,14 @@ public class Story {
     public Story addMonster(Monster monster) {
         String label = monster.getName();
         if (monsters.containsKey(label))
-            throw new IllegalArgumentException(String.format(Locale.ENGLISH, "This monster seems to already exists... (%s)", label));
+            throw new IllegalArgumentException(String.format(Locale.ENGLISH, "This story seems to already exists... (%s)", label));
         else monsters.put(label, monster);
         return this;
     }
 
     public Monster getMonster(String label) {
         if (monsters.containsKey(label)) return monsters.get(label);
-        else throw new IllegalArgumentException(String.format(Locale.ENGLISH, "This monster doesn't seem to exists... (%s)", label));
+        else throw new IllegalArgumentException(String.format(Locale.ENGLISH, "This story doesn't seem to exists... (%s)", label));
     }
 
     public Collection<Monster> getAllMonster() {

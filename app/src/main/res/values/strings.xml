@@ -27,5 +27,6 @@
     <string name="add_a_new_information">Add a new information</string>
     <string name="informations">Informations</string>
     <string name="Name">Name</string>
+    <string name="title_activity_dice_rolling">DiceRolling</string>
 
 </resources>

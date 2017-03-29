@@ -110,7 +110,7 @@ public class StoryView extends ActionBarActivity{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
-        /*
+        //*
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.onglets_story, menu);
@@ -122,14 +122,9 @@ public class StoryView extends ActionBarActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch(item.getItemId()){
-            case R.id.monsters:
-                setContentView(R.layout.monsters_view);
-                return true;
-            case R.id.lore:
-                setContentView(R.layout.lore_view);
-                return true;
             case R.id.dice:
-                setContentView(R.layout.dice_view);
+                Intent intent = new Intent(this, DiceRolling.class);
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -51,6 +51,12 @@ public class MainActivity extends ActionBarActivity {
                 Toast.makeText(this, "Database Cleaned", Toast.LENGTH_SHORT).show();
 
                 return true;
+
+            case R.id.dice:
+                Intent intent = new Intent(this, DiceRolling.class);
+                startActivity(intent);
+
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
