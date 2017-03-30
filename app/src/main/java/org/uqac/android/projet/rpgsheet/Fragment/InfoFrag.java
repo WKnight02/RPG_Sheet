@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * Created by Bruno.J on 16/03/2017.
  */
-public class NamesAndInfoFrag extends Fragment{
+public class InfoFrag extends Fragment{
     private Character ch;
     private CharacterDB dbCharacter;
     private Character_InfoDB dbInfos;
@@ -46,7 +46,7 @@ public class NamesAndInfoFrag extends Fragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.name_infos_view, container, false);
+        View view = inflater.inflate(R.layout.infos_view, container, false);
         listInfos = (ListView) view.findViewById(R.id.infos);
 
         if (getArguments() == null ||(activity = getActivity()) == null) {
@@ -65,7 +65,7 @@ public class NamesAndInfoFrag extends Fragment{
 
         if (infos != null) {
             Log.d("infos", infos.toString());
-             adapter = new CustomAdapter(activity, android.R.layout.simple_list_item_1, infos);
+            adapter = new CustomAdapter(activity, android.R.layout.simple_list_item_1, infos);
             listInfos.setAdapter(adapter);
 
 
@@ -74,6 +74,7 @@ public class NamesAndInfoFrag extends Fragment{
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                     List<Info> infos;
+                    Log.d("click?","click");
                     if((infos=adapter.getInfos())!=null) {
                         final Info i = infos.get(position);
 

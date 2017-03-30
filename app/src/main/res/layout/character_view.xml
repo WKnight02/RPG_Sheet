@@ -44,7 +44,7 @@
         android:id="@+id/nameAndInfo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-            tools:layout="@layout/name_infos_view" />
+            tools:layout="@layout/infos_view" />
 
         <fragment android:name="org.uqac.android.projet.rpgsheet.Fragment.SkillsFrag"
         android:id="@+id/skills"

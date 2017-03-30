@@ -14,7 +14,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import org.uqac.android.projet.rpgsheet.Fragment.DiceFrag;
-import org.uqac.android.projet.rpgsheet.Fragment.NamesAndInfoFrag;
+import org.uqac.android.projet.rpgsheet.Fragment.InfoFrag;
 import org.uqac.android.projet.rpgsheet.Fragment.SkillsFrag;
 import org.uqac.android.projet.rpgsheet.Fragment.TraitsFrag;
 import org.uqac.android.projet.rpgsheet.R;
@@ -28,7 +28,7 @@ public class CharacterView extends FragmentActivity {
 
     private FragmentTabHost tabHost;
     private FragmentTransaction transaction;
-    private NamesAndInfoFrag namesAndInfoFrag;
+    private InfoFrag infoFrag;
     private DiceFrag diceFrag;
     private SkillsFrag skillsFrag;
     private TraitsFrag traitsFrag;
@@ -39,7 +39,7 @@ public class CharacterView extends FragmentActivity {
         setContentView(R.layout.character_view);
         final Context context = this;
 
-        namesAndInfoFrag = new NamesAndInfoFrag();
+        infoFrag = new InfoFrag();
         skillsFrag= new SkillsFrag();
         traitsFrag= new TraitsFrag();
         diceFrag= new DiceFrag();
@@ -53,7 +53,7 @@ public class CharacterView extends FragmentActivity {
         bundle.putString("name", name);
         Log.d("name", name);
 
-        tabHost.addTab(tabHost.newTabSpec("nameAndInfo").setIndicator(createTabView(this, "Infos")), NamesAndInfoFrag.class, bundle);
+        tabHost.addTab(tabHost.newTabSpec("nameAndInfo").setIndicator(createTabView(this, "Infos")), InfoFrag.class, bundle);
         tabHost.addTab(tabHost.newTabSpec("skill").setIndicator(createTabView(this, "Skills")),SkillsFrag.class, bundle);
         tabHost.addTab(tabHost.newTabSpec("trait").setIndicator(createTabView(this, "Traits")), TraitsFrag.class, bundle);
         tabHost.addTab(tabHost.newTabSpec("dice").setIndicator(createTabView(this, "Dice")), DiceFrag.class, bundle);
@@ -82,7 +82,7 @@ public class CharacterView extends FragmentActivity {
         });
 */
         if(savedInstanceState==null){
-            getSupportFragmentManager().beginTransaction().add(android.R.id.tabcontent, namesAndInfoFrag).commit();
+            getSupportFragmentManager().beginTransaction().add(android.R.id.tabcontent, infoFrag).commit();
         }
 
         /*
