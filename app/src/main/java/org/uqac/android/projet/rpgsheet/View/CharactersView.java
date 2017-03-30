@@ -25,6 +25,7 @@ import org.uqac.android.projet.rpgsheet.models.Character;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by Bruno.J on 10/02/2017.
@@ -35,13 +36,15 @@ public class CharactersView extends ActionBarActivity {
     private ArrayList<String> names;
     private CharacterDB dbCharacter;
     private ArrayAdapter<String> adapter;
+    private ListView listView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.characters_view);
 
-        ListView view = (ListView) findViewById(R.id.CharactersList);
-        registerForContextMenu(view);
+        listView = (ListView) findViewById(R.id.CharactersList);
+        registerForContextMenu(listView);
 
         dbCharacter = new CharacterDB(this);
         final Collection<Character> characters = dbCharacter.getAllCharacters();
@@ -53,9 +56,9 @@ public class CharactersView extends ActionBarActivity {
             }
 
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, names);
-            view.setAdapter(adapter);
+            listView.setAdapter(adapter);
 
-            view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                     Intent intent = new Intent(CharactersView.this, CharacterView.class);
@@ -103,7 +106,8 @@ public class CharactersView extends ActionBarActivity {
         Character ch = dbCharacter.getCharacterByName(name);
         if(ch != null) {
             dbCharacter.deleteCharacter(ch);
-            recreate();
+            reloadAllData();
+            //recreate();
         }
     }
 
@@ -136,8 +140,8 @@ public class CharactersView extends ActionBarActivity {
                 try {
                     Character ch = new Character(name);
                     dbCharacter.insertCharacter(ch);
-                    recreate();
-
+                    //recreate();
+                    reloadAllData();
                 } catch (Exception e) {
                     Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
@@ -177,7 +181,8 @@ public class CharactersView extends ActionBarActivity {
                 try {
                     ch.setName(name);
                     dbCharacter.updateCharacter(ch);
-                    recreate();
+                    //recreate();
+                    reloadAllData();
 
                 } catch (Exception e) {
                     Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -193,6 +198,23 @@ public class CharactersView extends ActionBarActivity {
         });
 
         builder.show();
+
+    }
+
+    private void reloadAllData(){
+        // get new modified random data
+        List<Character> characters= (List<Character>) dbCharacter.getAllCharacters();
+        if(characters != null) {
+            for (Character ch : characters) {
+                names.add(ch.getName());
+            }
+            // update data in our adapter
+            adapter.clear();
+            if(names!=null)
+                adapter.addAll(names);
+            // fire the event
+            adapter.notifyDataSetChanged();
+        }
 
     }
 }

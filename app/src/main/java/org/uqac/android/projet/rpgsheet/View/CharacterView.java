@@ -3,7 +3,6 @@ package org.uqac.android.projet.rpgsheet.View;
 //import android.app.FragmentTransaction;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -40,12 +39,13 @@ public class CharacterView extends FragmentActivity {
         setContentView(R.layout.character_view);
         final Context context = this;
 
-        name=(String) getIntent().getExtras().get("name");
-
         namesAndInfoFrag = new NamesAndInfoFrag();
-        diceFrag= new DiceFrag();
         skillsFrag= new SkillsFrag();
         traitsFrag= new TraitsFrag();
+        diceFrag= new DiceFrag();
+
+
+        name=(String) getIntent().getExtras().get("name");
 
         this.tabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         tabHost.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
@@ -58,6 +58,7 @@ public class CharacterView extends FragmentActivity {
         tabHost.addTab(tabHost.newTabSpec("trait").setIndicator(createTabView(this, "Traits")), TraitsFrag.class, bundle);
         tabHost.addTab(tabHost.newTabSpec("dice").setIndicator(createTabView(this, "Dice")), DiceFrag.class, bundle);
 
+        /*
         tabHost.setOnTabChangedListener(new FragmentTabHost.OnTabChangeListener() {
 
             @Override
@@ -79,18 +80,11 @@ public class CharacterView extends FragmentActivity {
                 }
             }
         });
+*/
+        if(savedInstanceState==null){
+            getSupportFragmentManager().beginTransaction().add(android.R.id.tabcontent, namesAndInfoFrag).commit();
+        }
 
-        /*
-        if (findViewById(android.R.id.tabcontent) != null) {
-
-            if (savedInstanceState != null) {
-                return;
-            }
-
-            replaceFragment(namesAndInfoFrag);
-        }*/
-
-        tabHost.setCurrentTab(0);
         /*
         ArrayList<String> todoItems=new ArrayList<String>();
 
@@ -118,7 +112,7 @@ public class CharacterView extends FragmentActivity {
 
     public void replaceFragment(Fragment frag){
         transaction=getSupportFragmentManager().beginTransaction();
-        transaction.replace(android.R.id.tabcontent, frag);
+        transaction.replace(android.R.id.tabcontent, frag).addToBackStack(null);;
         transaction.commit();
     }
 

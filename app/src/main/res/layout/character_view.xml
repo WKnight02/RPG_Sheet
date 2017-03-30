@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_vert"
-    >
+    > -->
 <!--
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -16,26 +15,28 @@
     android:background="@color/background_vert">
 -->
     <android.support.v4.app.FragmentTabHost xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@android:id/tabhost"
+        android:background="@color/background_vert"
+
     >
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-         <TabWidget
-         android:id="@android:id/tabs"
-         android:layout_width="match_parent"
-             android:layout_height="45dp"
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
             />
 
             <FrameLayout
                 android:id="@android:id/tabcontent"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                  />
 
             <!--
@@ -74,6 +75,5 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="60dp"
                 android:onClick="Return" />
-    </LinearLayout>
+        </LinearLayout>
     </android.support.v4.app.FragmentTabHost>
-</ScrollView>

@@ -28,5 +28,8 @@
     <string name="informations">Informations</string>
     <string name="Name">Name</string>
     <string name="title_activity_dice_rolling">DiceRolling</string>
+    <string name="delete">delete</string>
+    <string name="skills">Skills</string>
+    <string name="add_a_new_skill">Add a new Skill</string>
 
 </resources>

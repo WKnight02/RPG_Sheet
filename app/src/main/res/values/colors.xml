@@ -4,4 +4,5 @@
     <color name="blanc" >#ffffff</color>
     <color name="marron">#d77614</color>
     <color name="background_vert">#81F781</color>
+    <color name="noir">#000000</color>
 </resources>
