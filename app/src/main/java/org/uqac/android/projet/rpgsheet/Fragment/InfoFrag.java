@@ -84,7 +84,7 @@ public class InfoFrag extends Fragment{
                         final EditText labelInput = new EditText(getActivity());
                         labelInput.setInputType(InputType.TYPE_CLASS_TEXT);
                         labelInput.setHint(R.string.label);
-                        labelInput.setText(i.getLabel().substring(0, i.getLabel().length() - 3));
+                        labelInput.setText(i.getLabel()/*.substring(0, i.getLabel().length() - 3)*/);
 
                         final EditText infoInput = new EditText(getActivity());
                         infoInput.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -106,7 +106,7 @@ public class InfoFrag extends Fragment{
                                 String label = labelInput.getText().toString();
                                 String info = infoInput.getText().toString();
 
-                                i.setLabel(label);
+                                i.setLabel(label.substring(0, i.getLabel().length() - 3));
                                 i.setValue(info);
                                 dbInfos.updateInfo(i);
 
@@ -201,19 +201,9 @@ public class InfoFrag extends Fragment{
                 v = inflater.inflate(R.layout.list_info, null);
             }
 
-		/*
-		 * Recall that the variable position is sent in as an argument to this method.
-		 * The variable simply refers to the position of the current object in the list. (The ArrayAdapter
-		 * iterates through the list we sent it)
-		 *
-		 * Therefore, i refers to the current Item object.
-		 */
             final Info i = objects.get(position);
 
             if (i != null) {
-
-                // This is how you obtain a reference to the TextViews.
-                // These TextViews are created in the XML files we defined.
 
                 TextView label = (TextView) v.findViewById(R.id.tv1);
                 TextView  description = (TextView) v.findViewById(R.id.tv2);
@@ -251,7 +241,8 @@ public class InfoFrag extends Fragment{
         // get new modified random data
         List<Info> infos= (List<Info>) dbInfos.getAllInfosForCharacter(ch);
         // update data in our adapter
-        adapter.getInfos().clear();
+        if(adapter.getInfos()!=null)
+            adapter.getInfos().clear();
         if(infos!=null)
             adapter.getInfos().addAll(infos);
         // fire the event

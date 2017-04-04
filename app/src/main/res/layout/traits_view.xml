@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_vert"
-    android:weightSum="1">
+    android:id="@+id/list">
 
     <TextView
-        android:text="Traits"
-        android:textSize="30dp"
+        android:text="@string/statistics"
+        android:textSize="30sp"
         android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,14 +17,31 @@
         android:id="@+id/textView2" />
 
 
-    <ListView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="327dp"
-        android:id="@+id/traits"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:layout_weight="0.83">
+        android:layout_height="wrap_content"
+        android:id="@+id/sous_list1">
 
-    </ListView>
-
+        <ListView
+            android:id="@+id/infos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" />
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="266dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/sous_list2">
+        <Button
+            android:text="@string/add_a_new_statistic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/newTrait"
+            android:background="@android:drawable/btn_default"
+            android:textAlignment="gravity"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="112dp"
+            tools:ignore="RtlHardcoded" />
+    </LinearLayout>
+</LinearLayout>

@@ -31,5 +31,10 @@
     <string name="delete">delete</string>
     <string name="skills">Skills</string>
     <string name="add_a_new_skill">Add a new Skill</string>
+    <string name="moins">moins</string>
+    <string name="plus">plus</string>
+    <string name="statistics">Statistics</string>
+    <string name="add_a_new_statistic">Add a new statistic</string>
+    <string name="value">value</string>
 
 </resources>

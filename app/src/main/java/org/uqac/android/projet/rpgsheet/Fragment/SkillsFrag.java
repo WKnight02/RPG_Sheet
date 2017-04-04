@@ -250,7 +250,8 @@ public class SkillsFrag extends Fragment {
         // get new modified random data
         List<Skill> skills= (List<Skill>) dbSkill.getAllSkillsForCharacter(ch);
         // update data in our adapter
-        adapter.getSkills().clear();
+        if(adapter.getSkills()!=null)
+            adapter.getSkills().clear();
         if(skills!=null)
             adapter.getSkills().addAll(skills);
         // fire the event

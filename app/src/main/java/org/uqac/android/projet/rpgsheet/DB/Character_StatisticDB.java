@@ -20,14 +20,14 @@ public class Character_StatisticDB extends DBBase {
     public static final String IDCharacter="idCharacter";
     public static final String IDTrait= "idStatistic";
     public static final String VALUE= "baseValue";
-    public static final String MAXVALUE="modifier";
+    public static final String MODIFIER ="modifier";
     public static final String LABEL= "label";
 
     public Character_StatisticDB(Context pContext) {
         super(pContext);
     }
 
-    public long insertTrait(Trait trait, Character ch) {
+    public long insertStatistic(Trait trait, Character ch) {
         open();
         long retVal;
         long idCharacter=ch.getId();
@@ -36,7 +36,7 @@ public class Character_StatisticDB extends DBBase {
 
         valuesInfo.put(IDCharacter, idCharacter);
         valuesInfo.put(LABEL, trait.getLabel());
-        valuesInfo.put(MAXVALUE, trait.getMaxValue());
+        valuesInfo.put(MODIFIER, trait.getModifier());
         valuesInfo.put(VALUE, trait.getValue());
         retVal=mDb.insert(TABLE_NAME, null, valuesInfo);
 
@@ -50,7 +50,7 @@ public class Character_StatisticDB extends DBBase {
         return 0;
     }
 
-    public long updateSkill(Trait trait){
+    public long updateStatistic(Trait trait){
         open();
         if(trait.getId()==-1){
             close();
@@ -59,13 +59,13 @@ public class Character_StatisticDB extends DBBase {
         ContentValues values=new ContentValues();
         values.put(VALUE, trait.getValue());
         values.put(LABEL, trait.getLabel());
-        values.put(MAXVALUE, trait.getMaxValue());
+        values.put(MODIFIER, trait.getModifier());
         long retVal=mDb.update(TABLE_NAME, values, IDTrait+"="+trait.getId(), null);
         close();
         return retVal;
     }
 
-    public long deleteSkill(Trait trait){
+    public long deleteStatistic(Trait trait){
         open();
         if(trait.getId()==-1){
             close();
@@ -79,7 +79,7 @@ public class Character_StatisticDB extends DBBase {
     public Collection<Trait> getAllStatisticsForCharacter(Character ch){
         open();
         Collection<Trait> infos=new ArrayList<Trait>();
-        Cursor curs= mDb.query(TABLE_NAME, new String[]{IDTrait,LABEL,VALUE,MAXVALUE}, "idCharacter="+ch.getId(), null, null, null, null, null);
+        Cursor curs= mDb.query(TABLE_NAME, new String[]{IDTrait,LABEL,VALUE, MODIFIER}, "idCharacter="+ch.getId(), null, null, null, null, null);
         if(curs.getCount()==0) {
             curs.close();
             close();
@@ -88,7 +88,7 @@ public class Character_StatisticDB extends DBBase {
         curs.moveToFirst();
         do {
             Trait info=new Trait(curs.getString(1), curs.getInt(2));
-            info.setMaxValue(curs.getInt(3));
+            info.setModifier(curs.getInt(3));
             info.setId(curs.getLong(0));
             infos.add(info);
         }while(curs.moveToNext());

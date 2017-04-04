@@ -12,13 +12,13 @@ public class Trait {
 
     protected long id;
     protected String label;
-    protected int maxValue;
+    protected int modifier;
     protected int value;
 
-    public Trait(String label, int maxValue) {
+    public Trait(String label, int modifier) {
         setLabel(label);
-        setMaxValue(maxValue);
-        setValue(maxValue);
+        setModifier(0);
+        setValue(modifier);
         this.id=-1;
     }
 
@@ -31,18 +31,18 @@ public class Trait {
         return label;
     }
 
-    public Trait setMaxValue(int maxValue) {
-        if (maxValue >= 0) this.maxValue = maxValue;
-        else throw new IllegalArgumentException(String.format(Locale.ENGLISH, "The max value for a trait should be positive (got %d)", maxValue));
+    public Trait setModifier(int modifier) {
+        /*if (modifier >= 0)*/ this.modifier = modifier;
+        //else throw new IllegalArgumentException(String.format(Locale.ENGLISH, "The max value for a trait should be positive (got %d)", modifier));
         return this;
     }
 
-    public int getMaxValue() {
-        return maxValue;
+    public int getModifier() {
+        return modifier;
     }
 
     public Trait setValue(int value) {
-        if (value >= 0) this.value = Math.min(this.maxValue, value);
+        if (value >= 0) this.value = /*Math.min(*/this.modifier/*, value)*/;
         else throw new IllegalArgumentException(String.format(Locale.ENGLISH, "The value for a trait should be positive (got %d)", value));
         return this;
     }

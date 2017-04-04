@@ -55,7 +55,7 @@ public class CharacterView extends FragmentActivity {
 
         tabHost.addTab(tabHost.newTabSpec("nameAndInfo").setIndicator(createTabView(this, "Infos")), InfoFrag.class, bundle);
         tabHost.addTab(tabHost.newTabSpec("skill").setIndicator(createTabView(this, "Skills")),SkillsFrag.class, bundle);
-        tabHost.addTab(tabHost.newTabSpec("trait").setIndicator(createTabView(this, "Traits")), TraitsFrag.class, bundle);
+        tabHost.addTab(tabHost.newTabSpec("stats").setIndicator(createTabView(this, "Stats")), TraitsFrag.class, bundle);
         tabHost.addTab(tabHost.newTabSpec("dice").setIndicator(createTabView(this, "Dice")), DiceFrag.class, bundle);
 
         /*
