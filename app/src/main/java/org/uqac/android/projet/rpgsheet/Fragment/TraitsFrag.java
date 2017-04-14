@@ -85,12 +85,12 @@ public class TraitsFrag extends Fragment{
                         final EditText labelInput = new EditText(getActivity());
                         labelInput.setInputType(InputType.TYPE_CLASS_TEXT);
                         labelInput.setHint(R.string.label);
-                        labelInput.setText(i.getLabel()/*.substring(0, i.getLabel().length() - 3)*/);
+                        labelInput.setText(i.getLabel()+""/*.substring(0, i.getLabel().length() - 3)*/);
 
                         final EditText infoInput = new EditText(getActivity());
                         infoInput.setInputType(InputType.TYPE_CLASS_TEXT);
                         infoInput.setHint(R.string.value);
-                        infoInput.setText(i.getValue());
+                        infoInput.setText(i.getValue()+"");
 
                         final LinearLayout ly = new LinearLayout(getActivity());
                         ly.setOrientation(LinearLayout.HORIZONTAL);
@@ -106,7 +106,7 @@ public class TraitsFrag extends Fragment{
                             public void onClick(DialogInterface dialog, int which) {
                                 String label = labelInput.getText().toString();
                                 Integer value= Integer.parseInt(infoInput.getText().toString());
-                                i.setLabel(label.substring(0, i.getLabel().length() - 3));
+                                i.setLabel(label);
                                 i.setValue(value);
                                 dbStatistics.updateStatistic(i);
 
@@ -159,6 +159,8 @@ public class TraitsFrag extends Fragment{
                         String label = labelInput.getText().toString();
                         Integer info= Integer.parseInt(infoInput.getText().toString());
 
+                        Log.d("valeur de base", info+"");
+
                         Trait newInfo=new Trait(label, info);
                         dbStatistics.insertStatistic(newInfo, ch);
 
@@ -198,7 +200,7 @@ public class TraitsFrag extends Fragment{
             // to inflate it basically means to render, or show, the view.
             if (v == null) {
                 LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                v = inflater.inflate(R.layout.list_info, null);
+                v = inflater.inflate(R.layout.list_traits, null);
             }
 
             final Trait i = objects.get(position);
@@ -211,7 +213,7 @@ public class TraitsFrag extends Fragment{
                 ImageButton moins = (ImageButton) v.findViewById(R.id.moins);
                 ImageButton plus = (ImageButton) v.findViewById(R.id.plus);
                 final EditText modifier = (EditText) v.findViewById(R.id.saisie);
-
+                modifier.setSelectAllOnFocus(true);
                 // check to see if each individual textview is null.
                 // if not, assign some text!
                 if (label != null) {
@@ -219,13 +221,19 @@ public class TraitsFrag extends Fragment{
                 }
                 if (description != null) {
                     //TODO RAJOUTER LES ITEMS
-                    description.setText(i.getModifier()+i.getValue());
+                    Log.d("affichage val combinées",i.getModifier()+" "+i.getValue());
+                    int value=i.getModifier()+i.getValue();
+                    if(value<0){
+                        value=0;
+                    }
+                    description.setText(value+"");
                 }
 
                 del.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if (i != null) {
+                            Log.d("id del", i.getId()+"");
                             dbStatistics.deleteStatistic(i);
                             reloadAllData();
                         }
@@ -236,7 +244,9 @@ public class TraitsFrag extends Fragment{
                     @Override
                     public void onClick(View view) {
                         if (i != null) {
-                            dbStatistics.updateStatistic(i.setModifier(i.getModifier() - 1));
+                            i.setModifier(i.getModifier() - 1);
+                            Log.d("id moins", i.getId()+"");
+                            dbStatistics.updateStatistic(i);
                             reloadAllData();
 
                         }
@@ -247,14 +257,15 @@ public class TraitsFrag extends Fragment{
                     @Override
                     public void onClick(View view) {
                         if (i != null) {
-                            dbStatistics.updateStatistic(i.setModifier(i.getModifier() + 1));
+                            i.setModifier(i.getModifier() + 1);
+                            dbStatistics.updateStatistic(i);
                             reloadAllData();
 
                         }
                     }
                 });
 
-                modifier.setText(i.getModifier());
+                modifier.setText(i.getModifier()+"");
 
                 modifier.addTextChangedListener(new TextWatcher() {
 
@@ -270,13 +281,23 @@ public class TraitsFrag extends Fragment{
 
                     @Override
                     public void afterTextChanged(Editable s) {
-                        if(i!=null && s!=null){
-                            dbStatistics.updateStatistic(i.setModifier(Integer.parseInt(s.toString())));
-                            reloadAllData();
-                        }
+
                     }
                 });
 
+                /*
+                modifier.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                    @Override
+                    public void onFocusChange(View v, boolean hasFocus) {
+                        if (!hasFocus) {
+                            if(i!=null && modifier.getText()!=null){
+                                i.setModifier(Integer.parseInt(modifier.getText().toString()));
+                                dbStatistics.updateStatistic(i);
+                                reloadAllData();
+                            }                        }
+                    }
+                });
+                */
             }
                 // the view must be returned to our activity
                 return v;
@@ -291,11 +312,16 @@ public class TraitsFrag extends Fragment{
         // get new modified random data
         List<Trait> infos= (List<Trait>) dbStatistics.getAllStatisticsForCharacter(ch);
         // update data in our adapter
-        if(adapter.getTraits()!=null)
-            adapter.getTraits().clear();
-        if(infos!=null)
-            adapter.getTraits().addAll(infos);
-        // fire the event
+
+        if(adapter==null && infos!=null){
+            adapter= new CustomAdapter(activity, android.R.layout.simple_list_item_1, infos);
+
+        }
+        if (adapter.getTraits() != null)
+                adapter.getTraits().clear();
+        if (infos != null)
+                adapter.getTraits().addAll(infos);
+            // fire the event
         adapter.notifyDataSetChanged();
     }
 

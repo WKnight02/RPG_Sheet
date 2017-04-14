@@ -84,7 +84,7 @@ public class SkillsFrag extends Fragment {
                         final EditText labelInput = new EditText(getActivity());
                         labelInput.setInputType(InputType.TYPE_CLASS_TEXT);
                         labelInput.setHint(R.string.label);
-                        labelInput.setText(i.getLabel().substring(0, i.getLabel().length() - 3));
+                        labelInput.setText(i.getLabel()+"");
 
                         final EditText infoInput = new EditText(getActivity());
                         infoInput.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -250,11 +250,17 @@ public class SkillsFrag extends Fragment {
         // get new modified random data
         List<Skill> skills= (List<Skill>) dbSkill.getAllSkillsForCharacter(ch);
         // update data in our adapter
+        if(adapter==null && skills!=null){
+            adapter= new CustomAdapter(activity, android.R.layout.simple_list_item_1, skills);
+
+        }
+        else{
         if(adapter.getSkills()!=null)
             adapter.getSkills().clear();
         if(skills!=null)
             adapter.getSkills().addAll(skills);
         // fire the event
+        }
         adapter.notifyDataSetChanged();
     }
 

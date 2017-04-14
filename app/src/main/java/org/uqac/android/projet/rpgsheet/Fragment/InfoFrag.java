@@ -106,7 +106,7 @@ public class InfoFrag extends Fragment{
                                 String label = labelInput.getText().toString();
                                 String info = infoInput.getText().toString();
 
-                                i.setLabel(label.substring(0, i.getLabel().length() - 3));
+                                i.setLabel(label);
                                 i.setValue(info);
                                 dbInfos.updateInfo(i);
 
@@ -237,16 +237,22 @@ public class InfoFrag extends Fragment{
         }
     }
 
-    private void reloadAllData(){
+    private void reloadAllData() {
         // get new modified random data
-        List<Info> infos= (List<Info>) dbInfos.getAllInfosForCharacter(ch);
+        List<Info> infos = (List<Info>) dbInfos.getAllInfosForCharacter(ch);
         // update data in our adapter
-        if(adapter.getInfos()!=null)
-            adapter.getInfos().clear();
-        if(infos!=null)
-            adapter.getInfos().addAll(infos);
+        if (adapter == null && infos != null) {
+            adapter = new CustomAdapter(activity, android.R.layout.simple_list_item_1, infos);
+
+        } else {
+            if (adapter.getInfos() != null)
+                adapter.getInfos().clear();
+            if (infos != null)
+                adapter.getInfos().addAll(infos);
+        }
         // fire the event
         adapter.notifyDataSetChanged();
+
     }
 
 }

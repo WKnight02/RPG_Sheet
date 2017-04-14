@@ -15,10 +15,10 @@ public class Trait {
     protected int modifier;
     protected int value;
 
-    public Trait(String label, int modifier) {
+    public Trait(String label, int value) {
         setLabel(label);
         setModifier(0);
-        setValue(modifier);
+        setValue(value);
         this.id=-1;
     }
 
@@ -42,7 +42,7 @@ public class Trait {
     }
 
     public Trait setValue(int value) {
-        if (value >= 0) this.value = /*Math.min(*/this.modifier/*, value)*/;
+        if (value >= 0) this.value = /*Math.min(*/value/*, value)*/;
         else throw new IllegalArgumentException(String.format(Locale.ENGLISH, "The value for a trait should be positive (got %d)", value));
         return this;
     }
