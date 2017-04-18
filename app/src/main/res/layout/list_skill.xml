@@ -17,6 +17,16 @@
         tools:ignore="RtlHardcoded" />
 
     <TextView
+        android:id="@+id/deuxPoints"
+        android:layout_marginLeft="2sp"
+        android:textSize="20sp"
+        android:textColor="@color/noir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/deuxPoints"
+        tools:ignore="RtlHardcoded" />
+
+    <TextView
         android:id="@+id/tv2"
         android:layout_marginLeft="10dp"
         android:textSize="20sp"

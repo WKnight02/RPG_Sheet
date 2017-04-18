@@ -36,5 +36,6 @@
     <string name="statistics">Statistics</string>
     <string name="add_a_new_statistic">Add a new statistic</string>
     <string name="value">value</string>
+    <string name="deuxPoints">:</string>
 
 </resources>

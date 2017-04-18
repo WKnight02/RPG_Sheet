@@ -5,9 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
 import android.text.InputType;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -267,6 +265,43 @@ public class TraitsFrag extends Fragment{
 
                 modifier.setText(i.getModifier()+"");
 
+                modifier.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setTitle("Set the modifier value:");
+
+                        final EditText labelInput = new EditText(getActivity());
+                        labelInput.setInputType(InputType.TYPE_CLASS_TEXT);
+                        labelInput.setHint("value");
+                        labelInput.setText(i.getModifier()+"");
+
+                        builder.setView(labelInput);
+
+                        // Set up the buttons
+                        builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Integer label = Integer.parseInt(labelInput.getText().toString());
+
+                                i.setModifier(label);
+                                dbStatistics.updateStatistic(i);
+
+                                reloadAllData();
+                            }
+                        });
+
+                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+
+                        builder.show();
+                    }
+                });
+                /*
                 modifier.addTextChangedListener(new TextWatcher() {
 
                     @Override
@@ -281,9 +316,13 @@ public class TraitsFrag extends Fragment{
 
                     @Override
                     public void afterTextChanged(Editable s) {
-
+                            if(i!=null && modifier.getText()!=null){
+                                i.setModifier(Integer.parseInt(modifier.getText().toString()));
+                                dbStatistics.updateStatistic(i);
+                                reloadAllData();
+                            }
                     }
-                });
+                });*/
 
                 /*
                 modifier.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -294,10 +333,10 @@ public class TraitsFrag extends Fragment{
                                 i.setModifier(Integer.parseInt(modifier.getText().toString()));
                                 dbStatistics.updateStatistic(i);
                                 reloadAllData();
-                            }                        }
+                            }
+                        }
                     }
-                });
-                */
+                });*/
             }
                 // the view must be returned to our activity
                 return v;

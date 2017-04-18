@@ -212,7 +212,7 @@ public class InfoFrag extends Fragment{
                 // check to see if each individual textview is null.
                 // if not, assign some text!
                 if (label != null){
-                    label.setText(i.getLabel()+" :");
+                    label.setText(i.getLabel()+"");
                 }
                 if (description != null){
                     description.setText(i.getValue());
