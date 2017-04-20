@@ -92,7 +92,7 @@ public class SkillsFrag extends Fragment {
                         infoInput.setText(i.getDescription());
 
                         final LinearLayout ly = new LinearLayout(getActivity());
-                        ly.setOrientation(LinearLayout.HORIZONTAL);
+                        ly.setOrientation(LinearLayout.VERTICAL);
                         ly.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT));
 
                         ly.addView(labelInput);
@@ -144,7 +144,7 @@ public class SkillsFrag extends Fragment {
                 infoInput.setHint(R.string.description);
 
                 final LinearLayout ly=new LinearLayout(getActivity());
-                ly.setOrientation(LinearLayout.HORIZONTAL);
+                ly.setOrientation(LinearLayout.VERTICAL);
                 ly.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT));
 
                 ly.addView(labelInput);

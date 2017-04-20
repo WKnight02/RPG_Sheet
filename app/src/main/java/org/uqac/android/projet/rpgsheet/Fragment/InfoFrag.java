@@ -92,7 +92,7 @@ public class InfoFrag extends Fragment{
                         infoInput.setText(i.getValue());
 
                         final LinearLayout ly = new LinearLayout(getActivity());
-                        ly.setOrientation(LinearLayout.HORIZONTAL);
+                        ly.setOrientation(LinearLayout.VERTICAL);
                         ly.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT));
 
                         ly.addView(labelInput);
@@ -145,7 +145,7 @@ public class InfoFrag extends Fragment{
                 infoInput.setHint(R.string.description);
 
                 final LinearLayout ly=new LinearLayout(getActivity());
-                ly.setOrientation(LinearLayout.HORIZONTAL);
+                ly.setOrientation(LinearLayout.VERTICAL);
                 ly.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT));
 
                 ly.addView(labelInput);

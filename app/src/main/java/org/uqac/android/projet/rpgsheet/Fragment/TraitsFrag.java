@@ -91,7 +91,7 @@ public class TraitsFrag extends Fragment{
                         infoInput.setText(i.getValue()+"");
 
                         final LinearLayout ly = new LinearLayout(getActivity());
-                        ly.setOrientation(LinearLayout.HORIZONTAL);
+                        ly.setOrientation(LinearLayout.VERTICAL);
                         ly.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT));
 
                         ly.addView(labelInput);
@@ -143,7 +143,7 @@ public class TraitsFrag extends Fragment{
                 infoInput.setHint(R.string.value);
 
                 final LinearLayout ly=new LinearLayout(getActivity());
-                ly.setOrientation(LinearLayout.HORIZONTAL);
+                ly.setOrientation(LinearLayout.VERTICAL);
                 ly.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT));
 
                 ly.addView(labelInput);
