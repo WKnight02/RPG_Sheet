@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.uqac.android.projet.rpgsheet.R;
 
@@ -50,7 +51,14 @@ public class DiceRolling extends ActionBarActivity implements SensorEventListene
     }
 
     protected void onShake() {
-        int max = Integer.parseInt(faceNumber.getText().toString());
+        int max = 6;
+            try {
+                max = Integer.parseInt(faceNumber.getText().toString());
+            } catch(Exception e) {
+                faceNumber.setText("6");
+                return;
+            }
+
         int random = (int)(Math.random() * max) + 1;
 
         diceSeekBar.setMax(max);
