@@ -205,8 +205,8 @@ public class TraitsFrag extends Fragment{
 
             if (i != null) {
 
-                TextView label = (TextView) v.findViewById(R.id.tv1);
-                TextView description = (TextView) v.findViewById(R.id.tv2);
+                TextView label = (TextView) v.findViewById(R.id.traitName);
+                TextView description = (TextView) v.findViewById(R.id.traitModified);
                 ImageButton del = (ImageButton) v.findViewById(R.id.imageButton);
                 ImageButton moins = (ImageButton) v.findViewById(R.id.moins);
                 ImageButton plus = (ImageButton) v.findViewById(R.id.plus);
