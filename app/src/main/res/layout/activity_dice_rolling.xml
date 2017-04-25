@@ -9,10 +9,11 @@
     android:textColor="#FFFFFF">
 
     <TextView
+        android:layout_weight="1"
         android:id="@+id/titleDice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Dice"
+        android:text="@string/dice"
         android:textAlignment="center"
         android:textSize="30sp"
         android:textStyle="bold" />
@@ -21,42 +22,46 @@
         android:id="@+id/diceFaceNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="2"
         android:ems="10"
-        android:hint="faces"
+        android:hint="@string/faces"
         android:inputType="number"
-        android:text="6"
-        android:textAlignment="center" />
+        android:text="@string/_6"
+        android:textAlignment="center"
+        android:textSize="@dimen/abc_text_size_large_material"/>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_weight="20">
 
         <Switch
             android:id="@+id/accToggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
             android:checked="true"
-            android:text="Acceleromètre"
+            android:text="@string/accelerom_tre"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginEnd="8dp" />
+            tools:ignore="RtlHardcoded" />
 
         <SeekBar
             android:id="@+id/diceSeekBar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
             android:clickable="false"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="8dp" />
+            app:layout_constraintRight_toRightOf="parent" />
 
         <TextView
             android:id="@+id/diceResult"
@@ -68,7 +73,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="0"
+            android:text="@string/_0"
             android:textSize="60sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/diceSeekBar"
@@ -77,4 +82,18 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="266dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="60dp"
+        android:layout_weight="2"
+        android:background="@android:drawable/btn_default"
+        android:gravity="center"
+        android:onClick="Return"
+        android:text="@string/returnButton"
+        android:textAlignment="gravity"
+        tools:ignore="RtlHardcoded" />
+
 </LinearLayout>

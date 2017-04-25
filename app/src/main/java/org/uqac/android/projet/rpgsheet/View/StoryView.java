@@ -132,8 +132,10 @@ public class StoryView extends ActionBarActivity{
     }
 
     public void Return(View view){
+        /*
         Intent intent = new Intent(this, CharactersView.class);
-        startActivity(intent);
+        startActivity(intent);*/
+        finish();
     }
 
     @Override

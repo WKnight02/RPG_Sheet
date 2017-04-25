@@ -37,5 +37,9 @@
     <string name="add_a_new_statistic">Add a new statistic</string>
     <string name="value">value</string>
     <string name="deuxPoints">:</string>
+    <string name="_0">0</string>
+    <string name="_6">6</string>
+    <string name="accelerom_tre">Acceleromètre</string>
+    <string name="faces">faces</string>
 
 </resources>

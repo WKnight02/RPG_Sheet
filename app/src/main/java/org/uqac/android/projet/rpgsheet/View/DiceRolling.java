@@ -2,18 +2,17 @@ package org.uqac.android.projet.rpgsheet.View;
 
 import android.content.Context;
 import android.hardware.Sensor;
-import android.hardware.SensorEventListener;
 import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.uqac.android.projet.rpgsheet.R;
 
@@ -94,5 +93,12 @@ public class DiceRolling extends ActionBarActivity implements SensorEventListene
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
         // PASS
+    }
+
+    public void Return(View view){
+        /*
+        Intent intent = new Intent(this, CharactersView.class);
+        startActivity(intent);*/
+        finish();
     }
 }
