@@ -40,8 +40,8 @@ public class CharacterView extends FragmentActivity {
         final Context context = this;
 
         infoFrag = new InfoFrag();
-        skillsFrag= new SkillsFrag();
-        traitsFrag= new TraitsFrag();
+        skillsFrag = new SkillsFrag();
+        traitsFrag = new TraitsFrag();
         diceFrag= new DiceFrag();
 
 

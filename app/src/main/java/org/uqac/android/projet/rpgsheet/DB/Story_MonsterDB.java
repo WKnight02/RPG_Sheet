@@ -20,6 +20,8 @@ public class Story_MonsterDB extends DBBase{
     public static final String IDStory = "idStory";
     public static final String IDMonster = "idMonster";
     public static final String NAME = "name";
+    public static final String HEALTH = "health";
+    public static final String STRENGTH = "strength";
 
     public Story_MonsterDB(Context pContext) {
         super(pContext);
@@ -51,6 +53,8 @@ public class Story_MonsterDB extends DBBase{
 
         values.put(IDStory, idStory);
         values.put(NAME, m.getName());
+        values.put(HEALTH, m.getHealth());
+        values.put(STRENGTH, m.getStrength());
         retVal = mDb.insert(TABLE_NAME, null, values);
 
         if(retVal == -1){
@@ -73,6 +77,8 @@ public class Story_MonsterDB extends DBBase{
 
         ContentValues values=new ContentValues();
         values.put(NAME, monster.getName());
+        values.put(HEALTH, monster.getHealth());
+        values.put(STRENGTH, monster.getStrength());
 
         long retVal=mDb.update(TABLE_NAME, values, IDMonster+"="+monster.getId(), null);
         close();
@@ -98,7 +104,7 @@ public class Story_MonsterDB extends DBBase{
         open();
 
         Collection<Monster> monsters = new ArrayList<Monster>();
-        Cursor curs = mDb.query(TABLE_NAME, new String[]{ IDMonster, NAME }, String.format("%s=%s", IDStory, story.getId()), null, null, null, null, null);
+        Cursor curs = mDb.query(TABLE_NAME, new String[]{ IDMonster, NAME, HEALTH, STRENGTH }, String.format("%s=%s", IDStory, story.getId()), null, null, null, null, null);
 
         if(curs.getCount() == 0) {
             curs.close();
@@ -109,6 +115,8 @@ public class Story_MonsterDB extends DBBase{
         curs.moveToFirst();
         do {
             Monster monster = new Monster(curs.getString(curs.getColumnIndex(NAME)));
+            monster.setHealth(curs.getInt(curs.getColumnIndex(HEALTH)));
+            monster.setStrength(curs.getInt(curs.getColumnIndex(STRENGTH)));
             monster.setId(curs.getLong(curs.getColumnIndex(IDMonster)));
             monsters.add(monster);
         } while(curs.moveToNext());

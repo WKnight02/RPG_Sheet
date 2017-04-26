@@ -198,7 +198,7 @@ public class InfoFrag extends Fragment{
             // to inflate it basically means to render, or show, the view.
             if (v == null) {
                 LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                v = inflater.inflate(R.layout.list_info, null);
+                v = inflater.inflate(R.layout.info_item, null);
             }
 
             final Info i = objects.get(position);

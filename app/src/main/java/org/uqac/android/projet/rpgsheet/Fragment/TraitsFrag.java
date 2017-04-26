@@ -198,7 +198,7 @@ public class TraitsFrag extends Fragment{
             // to inflate it basically means to render, or show, the view.
             if (v == null) {
                 LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                v = inflater.inflate(R.layout.list_traits, null);
+                v = inflater.inflate(R.layout.trait_item, null);
             }
 
             final Trait i = objects.get(position);

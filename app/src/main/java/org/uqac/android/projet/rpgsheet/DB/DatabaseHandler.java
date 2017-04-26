@@ -140,6 +140,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "idStory integer," +
                 "idMonster integer Primary Key autoincrement," +
                 "name varchar(64) not NULL," +
+                "health integer not NULL," +
+                "strength integer not NULL," +
                 "Foreign Key (idStory) REFERENCES Story(idStory) ON DELETE CASCADE" +
                 ")");
 

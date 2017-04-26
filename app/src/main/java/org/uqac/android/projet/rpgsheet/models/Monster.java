@@ -14,12 +14,10 @@ public class Monster {
 
     protected long id;
     protected String name;
-    protected HashMap<String, Trait> traits;
-    protected HashMap<String, Info> infos;
+    protected int health = 0;
+    protected int strength = 0;
 
     public Monster(String name) {
-        traits = new HashMap<String, Trait>();
-        infos = new HashMap<String, Info>();
         setName(name);
         this.id=-1;
     }
@@ -34,44 +32,22 @@ public class Monster {
         return name;
     }
 
-    /**
-     * Adds a trait to the character
-     */
-    public Monster addTrait(Trait trait) {
-        String label = trait.getLabel();
-        if (traits.containsKey(label))
-            throw new IllegalArgumentException(String.format(Locale.ENGLISH, "This trait seems to already exists... (%s)", label));
-        else traits.put(label, trait);
+    public int getHealth() {
+        return health;
+    }
+
+    public Monster setHealth(int health) {
+        this.health = health;
         return this;
     }
 
-    public Trait getTrait(String label) {
-        if (traits.containsKey(label)) return traits.get(label);
-        else throw new IllegalArgumentException(String.format(Locale.ENGLISH, "This trait doesn't seem to exists... (%s)", label));
+    public int getStrength() {
+        return strength;
     }
 
-    public Collection<Trait> getAllTraits() {
-        return traits.values();
-    }
-
-    /**
-     * Adds an info to the character
-     */
-    public Monster addInfo(Info info) {
-        String label = info.getLabel();
-        if (traits.containsKey(label))
-            throw new IllegalArgumentException(String.format(Locale.ENGLISH, "This info seems to already exists... (%s)", label));
-        else infos.put(label, info);
+    public Monster setStrength(int strength) {
+        this.strength = strength;
         return this;
-    }
-
-    public Info getInfo(String label) {
-        if (infos.containsKey(label)) return infos.get(label);
-        else throw new IllegalArgumentException(String.format(Locale.ENGLISH, "This info doesn't seem to exists... (%s)", label));
-    }
-
-    public Collection<Info> getAllInfos() {
-        return infos.values();
     }
 
     public long getId(){ return this.id;}

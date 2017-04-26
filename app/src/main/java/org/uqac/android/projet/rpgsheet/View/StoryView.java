@@ -3,6 +3,7 @@ package org.uqac.android.projet.rpgsheet.View;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -11,9 +12,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.TabHost;
 
+import org.uqac.android.projet.rpgsheet.Adapters.MonsterExpandableQuickAdapter;
 import org.uqac.android.projet.rpgsheet.Adapters.MonsterQuickAdapter;
 import org.uqac.android.projet.rpgsheet.DB.StoryDB;
 import org.uqac.android.projet.rpgsheet.DB.Story_MonsterDB;
@@ -40,12 +43,12 @@ public class StoryView extends ActionBarActivity{
 
     private StoryDB dbStory;
 
-    private ListView monsterList;
+    private ExpandableListView monsterList;
     private EditText loreText;
     private Button addMonster;
 
     private ArrayList<Monster> monsters;
-    private MonsterQuickAdapter adapter;
+    private MonsterExpandableQuickAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +59,7 @@ public class StoryView extends ActionBarActivity{
 
         story = dbStory.getStoryByTile(title);
 
-        monsterList = (ListView)findViewById(R.id.monstersListView);
+        monsterList = (ExpandableListView)findViewById(R.id.monstersExpandableListView);
         addMonster = (Button)findViewById(R.id.storyTabMonstersAddMonster);
         loreText = (EditText)findViewById(R.id.storyTextML);
 
@@ -85,11 +88,21 @@ public class StoryView extends ActionBarActivity{
         spec.setIndicator(getString(R.string.monsters));
         host.addTab(spec);
 
+        monsterList.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                Log.d("onGroupClick:", "worked");
+                parent.expandGroup(groupPosition);
+                return false;
+            }
+        });
+
         if(monsters != null) {
 
-            adapter = new MonsterQuickAdapter(this, monsters);
+            adapter = new MonsterExpandableQuickAdapter(this, monsters);
             monsterList.setAdapter(adapter);
 
+            /*
             monsterList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -98,7 +111,7 @@ public class StoryView extends ActionBarActivity{
                     intent.putExtra("name", name);
                     startActivity(intent);
                 }
-            });
+            });//*/
         }
     }
 
