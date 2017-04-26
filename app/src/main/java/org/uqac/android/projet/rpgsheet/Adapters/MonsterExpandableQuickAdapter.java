@@ -99,7 +99,7 @@ public class MonsterExpandableQuickAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         if (convertView == null)
-            convertView = inflater.inflate(R.layout.skill_item, null);
+            convertView = inflater.inflate(R.layout.trait_item, null);
         TextView name = (TextView)convertView.findViewById(R.id.traitName);
         TextView value = (TextView)convertView.findViewById(R.id.saisie);
 

@@ -1,5 +1,6 @@
 package org.uqac.android.projet.rpgsheet.View;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -8,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.TabHost;
+import android.widget.Toast;
 
 import org.uqac.android.projet.rpgsheet.Adapters.MonsterExpandableQuickAdapter;
 import org.uqac.android.projet.rpgsheet.Adapters.MonsterQuickAdapter;
@@ -44,6 +47,7 @@ public class StoryView extends ActionBarActivity{
     private StoryDB dbStory;
 
     private ExpandableListView monsterList;
+    private EditText newMonsterName;
     private EditText loreText;
     private Button addMonster;
 
@@ -61,8 +65,9 @@ public class StoryView extends ActionBarActivity{
 
         monsterList = (ExpandableListView)findViewById(R.id.monstersExpandableListView);
         addMonster = (Button)findViewById(R.id.storyTabMonstersAddMonster);
-        loreText = (EditText)findViewById(R.id.storyTextML);
+        newMonsterName = (EditText)findViewById(R.id.storyTabMonstersNewName);
 
+        loreText = (EditText)findViewById(R.id.storyTextML);
         loreText.setText(story.getLore());
 
         Story_MonsterDB dbMonters = new Story_MonsterDB(this);
@@ -119,12 +124,27 @@ public class StoryView extends ActionBarActivity{
         Story_MonsterDB dbMonster = new Story_MonsterDB(this);
         long i = dbMonster.getMaxId();
 
-        Monster monster = new Monster("monster" + (i+1));
-        dbMonster.insertMonster(monster, story);
-        story.addMonster(monster);
+        try {
+            String name = newMonsterName.getText().toString();
+            Log.d("New Monster!", name);
+            Monster monster = new Monster(name);
+            dbMonster.insertMonster(monster, story);
+            story.addMonster(monster);
 
-        monsters.add(monster);
-        adapter.notifyDataSetChanged();
+            monsters.add(monster);
+            newMonsterName.setText("");
+            InputMethodManager inputManager =
+                    (InputMethodManager)getApplicationContext().
+                            getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(
+                    this.getCurrentFocus().getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
+
+            adapter.notifyDataSetChanged();
+
+        } catch (Exception e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT);
+        }
     }
 
     @Override
