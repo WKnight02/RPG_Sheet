@@ -19,25 +19,25 @@
         android:contentDescription="@string/title" />
 
     <Button
-        android:text="@string/player"
+        android:id="@+id/PlayerButton"
         android:layout_width="173dp"
         android:layout_height="wrap_content"
-        android:id="@+id/PlayerButton"
-        android:scaleX="1"
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
+        android:background="#a45611"
         android:onClick="loadPlayerView"
-        android:background="#a45611" />
+        android:scaleX="1"
+        android:text="@string/player" />
 
     <Button
-        android:text="@string/game_master"
+        android:id="@+id/GMButton"
         android:layout_width="173dp"
         android:layout_height="wrap_content"
-        android:id="@+id/GMButton"
         android:layout_gravity="center"
         android:layout_marginTop="80dp"
+        android:background="#a45611"
         android:onClick="loadGMView"
-        android:background="#a45611" />
+        android:text="@string/game_master" />
 
 
 </LinearLayout>

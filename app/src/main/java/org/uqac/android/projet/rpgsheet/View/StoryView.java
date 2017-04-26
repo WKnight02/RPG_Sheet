@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TabHost;
 
+import org.uqac.android.projet.rpgsheet.Adapters.MonsterQuickAdapter;
 import org.uqac.android.projet.rpgsheet.DB.StoryDB;
 import org.uqac.android.projet.rpgsheet.DB.Story_MonsterDB;
 import org.uqac.android.projet.rpgsheet.R;
@@ -43,6 +44,9 @@ public class StoryView extends ActionBarActivity{
     private EditText loreText;
     private Button addMonster;
 
+    private ArrayList<Monster> monsters;
+    private MonsterQuickAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +63,12 @@ public class StoryView extends ActionBarActivity{
         loreText.setText(story.getLore());
 
         Story_MonsterDB dbMonters = new Story_MonsterDB(this);
-        final Collection<Monster> monsters = dbMonters.getAllMonstersForStory(story);
+        monsters = new ArrayList<Monster>();
+
+        Collection<Monster> monstersCollection = dbMonters.getAllMonstersForStory(story);
+        if (monstersCollection != null) {
+            monsters.addAll(monstersCollection);
+        }
 
         // Tabs
         TabHost.TabSpec spec;
@@ -76,13 +85,9 @@ public class StoryView extends ActionBarActivity{
         spec.setIndicator(getString(R.string.monsters));
         host.addTab(spec);
 
-        monsterNames = new ArrayList<String>();
         if(monsters != null) {
-            for (Monster monster : monsters) {
-                monsterNames.add(monster.getName());
-            }
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, monsterNames);
+            adapter = new MonsterQuickAdapter(this, monsters);
             monsterList.setAdapter(adapter);
 
             monsterList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -105,7 +110,8 @@ public class StoryView extends ActionBarActivity{
         dbMonster.insertMonster(monster, story);
         story.addMonster(monster);
 
-        recreate();
+        monsters.add(monster);
+        adapter.notifyDataSetChanged();
     }
 
     @Override

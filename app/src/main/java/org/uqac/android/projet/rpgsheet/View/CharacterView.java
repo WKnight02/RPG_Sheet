@@ -51,7 +51,6 @@ public class CharacterView extends FragmentActivity {
         tabHost.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
         Bundle bundle=new Bundle();
         bundle.putString("name", name);
-        Log.d("name", name);
 
         tabHost.addTab(tabHost.newTabSpec("nameAndInfo").setIndicator(createTabView(this, "Infos")), InfoFrag.class, bundle);
         tabHost.addTab(tabHost.newTabSpec("skill").setIndicator(createTabView(this, "Skills")),SkillsFrag.class, bundle);
